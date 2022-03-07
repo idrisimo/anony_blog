@@ -16,7 +16,7 @@ function submitArticle(event) {
         }
     }
     // TODO this fetch will most likely need to change before production
-    fetch('http://localhost:3000/')
+    fetch('http://localhost:3000/create', options)
 }
 
 module.exports = {submitArticle}
