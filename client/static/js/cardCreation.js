@@ -5,8 +5,6 @@ function buildDeck() {
     fetch('http://localhost:3000/articles')
         .then((response) => response.json())
         .then((data) => {
-            
-
             const wrapper = document.getElementById('cards')
             
             for (index in data) {
@@ -15,17 +13,11 @@ function buildDeck() {
                 // wrapper.append(card)
                 wrapper.insertAdjacentHTML('afterbegin', card)
             }
-
         })
-
-
-
-
 }
 
-
 function cardTemplate(data) {
-    const template = `<div id="cardNum-${data['id']}"class="col">
+    const template = `<div id="cardNum${data['id']}"class="col">
     <div class="card">
         <div class="card-header">
             <i class="fa-solid fa-face-smile-beam "></i>
@@ -58,4 +50,15 @@ function cardTemplate(data) {
 return template
 }
 
-module.exports = { buildDeck }
+function removeCards(event) {
+    // Skywalker in the jedi temple.
+    event.preventDefault()
+    const wrapper = document.getElementById('cards');
+    let child = wrapper.lastElementChild; 
+    while (child) {
+        wrapper.removeChild(child)
+        child = wrapper.lastElementChild;
+    }
+}
+
+module.exports = { buildDeck, removeCards }
