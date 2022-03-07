@@ -5,11 +5,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="bundle.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
-    <script defer src="bundle.js" ></script>
-    
+
+
 
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -32,7 +33,8 @@
         <div class="hero text-center">
 
             <p class="hero-text">welcome to anonyblog <br> share your own thoughts.</p>
-            <button class="btn btn-primary hero-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Start</button>
+            <button class="btn btn-primary hero-btn" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">Start</button>
         </div>
 
         <section class="container mt-5">
@@ -52,14 +54,14 @@
                         <div class="card-footer">
                             <div>
                                 <a href="#" class="comment-icon-format me-3">
-                                    
+
                                     <i class="fa-solid fa-comment">
                                         <span
                                             class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger comment-pill">
                                             99+
                                             <span class="visually-hidden">unread messages</span>
-                                    </i> 
-                                </a> 
+                                    </i>
+                                </a>
                                 <a href="">
                                     <i class="fa-solid fa-face-smile"></i>
                                 </a>
@@ -122,22 +124,25 @@
         <section>
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="articleModal" aria-hidden="true">
                 <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="articleModal">Modal title</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="articleModal">Modal title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="userForm">
+                                <input id="articleTitle" type="text" placeholder="enter title">
+                                <textarea name="" id="articleText" rows="10" class="textarea-format"
+                                    placeholder="What you thinking"></textarea>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <input id="submitArticle" type="submit" class="btn btn-primary" form="userForm" value="Submit">
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <input type="text" placeholder="enter title">
-                        <textarea name="" id="" rows="10" class="textarea-format" placeholder="What you thinking"></textarea>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button id="submitArticle" type="button" class="btn btn-primary">Submit</button>
-                    </div>
-                  </div>
                 </div>
-              </div>
+            </div>
         </section>
     </main>
     <footer>

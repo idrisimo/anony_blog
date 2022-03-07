@@ -1,8 +1,8 @@
 const { submitArticle } = require("./handler");
 
 // selectors
-const articleSubmit = document.getElementById('submitArticle');
+const articleForm = document.querySelector('#userForm');
 
 // event listeners
-articleSubmit.addEventListener('click', submitArticle)
+articleForm.addEventListener('submit', submitArticle)
 
