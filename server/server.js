@@ -7,11 +7,13 @@ app.use(express.json())
 //app.use(cors());
 
 
-// const searchRoutes = require('./controller')
-// app.use('/search', searchRoutes)
+const searchRoutes = require('./controller/controller.js')
+app.use('/', searchRoutes)
 
 app.get('/', (req, res) => {
-    res.send('Hello there!');
+    res.send('Hello there test!');
 });
+
+
 
 module.exports = app;
