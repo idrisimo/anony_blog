@@ -4,7 +4,7 @@ function submitArticle(event) {
     event.preventDefault()
     console.log('form submitted')
     const articleData = {
-        title: event.target['articleTitle'].valuele,
+        title: event.target['articleTitle'].value,
         description: event.target['articleText'].value,
         createdAt: new Date()
     };

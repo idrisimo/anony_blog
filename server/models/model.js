@@ -1,5 +1,5 @@
-const articlesData = require("../data")
-
+const { articles } = require("../data")
+const articlesData = articles
 
 class Article{
     constructor(data){
@@ -18,9 +18,9 @@ class Article{
       const newArticleId = articlesData.length +1;
       const newArticle = new Article({id:newArticleId, ...article});
       articlesData.push(newArticle);
-      return  newArticle
+      console.log(articlesData)
+      return  articlesData;
     }
-
   }
 
   module.exports = Article
