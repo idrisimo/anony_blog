@@ -1,0 +1,52 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.hero {
+    background-image: linear-gradient(to bottom, black, rgba(0, 0, 0, 0)),url("https://k48b9e9840-flywheel.netdna-ssl.com/wp-content/uploads/2021/07/alfons-morales-YLSwjSy7stw-unsplash.jpg");
+	background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+	height: 100vh;
+}
+
+.hero-text {
+    position: absolute;
+   bottom:50%;
+   color: white;
+}
+
+.hero-btn {
+    position: absolute;
+    bottom: 45%;
+}
+
+
+
+.card-footer {
+display:flex;
+justify-content: space-between;
+}
+
+.comment-icon-format {
+    position: relative;
+    text-decoration: none;
+}
+
+
+
+.comment-pill {
+    font-size: .50em;
+}
+
+
+.emoji-pill-format {
+    transform: translate(-50%, -60%);
+}
+
+.textarea-format {
+width: 100%;
+}
