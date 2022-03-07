@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "dev": "concurrently \"watchify ./index.js -o bundle.js\" \"py -m http.server\""
+    "dev": "concurrently \"watchify ./static/js/index.js -o bundle.js\" \"py -m http.server\""
   },
   "keywords": [],
   "author": "",
