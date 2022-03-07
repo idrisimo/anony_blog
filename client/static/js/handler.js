@@ -40,7 +40,7 @@ function successAlert(message, type) {
     btn.setAttribute('class', 'btn-close')
     btn.setAttribute('data-bs-dismiss', 'alert')
     btn.setAttribute('aria-label', 'Close')
-    alertWrapper.textContent =  message
+    alertWrapper.textContent = message
     alertWrapper.append(btn)
     const submitAlert = document.getElementById('submitAlert')
     submitAlert.append(alertWrapper)
