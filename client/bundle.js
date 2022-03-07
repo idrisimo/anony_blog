@@ -4,7 +4,7 @@ function submitArticle(event) {
     event.preventDefault()
     console.log('form submitted')
     const articleData = {
-        title: event.target['articleTitle'].valuele,
+        title: event.target['articleTitle'].value,
         description: event.target['articleText'].value,
         createdAt: new Date()
     };
@@ -17,7 +17,7 @@ function submitArticle(event) {
         }
     }
     // TODO this fetch will most likely need to change before production
-    fetch('http://localhost:3000/')
+    fetch('http://localhost:3000/create', options)
 }
 
 module.exports = {submitArticle}
