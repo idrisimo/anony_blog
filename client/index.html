@@ -21,6 +21,8 @@
         integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="static/css/main.css">
+    <link rel="icon" href="./static/image/favicon-32x32.png">
+
     <title>Anony-blog</title>
 </head>
 
@@ -30,15 +32,16 @@
         <!--Add logo-->
     </header>
     <main>
+        <div id="submitAlert"></div>
         <div class="hero text-center">
 
             <p class="hero-text">welcome to anonyblog <br> share your own thoughts.</p>
             <button class="btn btn-primary hero-btn" data-bs-toggle="modal"
-                data-bs-target="#exampleModal">Start</button>
+                data-bs-target="#articleModal">Start</button>
         </div>
 
         <section class="container mt-5">
-            <div class="row row-cols-1 row-cols-md-2 g-4">
+            <div id="cards" class="row row-cols-1 row-cols-md-2 g-4">
                 <div class="col">
                     <div class="card">
                         <div class="card-header">
@@ -122,7 +125,7 @@
         </section>
 
         <section>
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="articleModal" aria-hidden="true">
+            <div class="modal fade" id="articleModal" tabindex="-1" aria-labelledby="articleModal" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
