@@ -43,6 +43,7 @@ function reactionsHandler(reactionsArray) {
 
 function cardTemplate(data) {
     const reactionsSummary = reactionsHandler(data['reactions'])
+    console.log(data['title'])
     const template = `<div id="cardNum${data['id']}"class="col">
     <div class="card">
         <div class="card-header">
@@ -111,7 +112,9 @@ function submitArticle(event) {
         const articleData = {
             title: event.target['articleTitle'].value,
             description: event.target['articleText'].value,
-            createdAt: new Date()
+            createdAt: new Date(),
+            comments: [null],
+            reactions: [null]
         };
         const options = {
             method: 'POST',

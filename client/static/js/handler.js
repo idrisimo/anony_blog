@@ -6,7 +6,9 @@ function submitArticle(event) {
         const articleData = {
             title: event.target['articleTitle'].value,
             description: event.target['articleText'].value,
-            createdAt: new Date()
+            createdAt: new Date(),
+            comments: [null],
+            reactions: [null]
         };
         const options = {
             method: 'POST',

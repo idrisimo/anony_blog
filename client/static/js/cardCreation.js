@@ -42,6 +42,7 @@ function reactionsHandler(reactionsArray) {
 
 function cardTemplate(data) {
     const reactionsSummary = reactionsHandler(data['reactions'])
+    console.log(data['title'])
     const template = `<div id="cardNum${data['id']}"class="col">
     <div class="card">
         <div class="card-header">
