@@ -1,11 +1,13 @@
 const articlesData = require('../data')
 const Article = require('../models/model')
 
-describe('article model', () => {
+describe('Article model', () => {
   const testArticle = {
     title: 'article 1',
     createdAt: '',
     description:'Very good article 1',
+    comments: ["Good post", "I like this post"],
+    reactions: "U+1F600",
   };
 
   it('should make and instance of article',() => {
@@ -15,7 +17,10 @@ describe('article model', () => {
     expect(article.title).toBe('article 1');
     expect(article.createdAt).toBe('');
     expect(article.description).toBe('Very good article 1');
+    expect(article.comments).toStrictEqual(["Good post", "I like this post"]);
+    expect(article.reactions).toBe('U+1F600');
   });
+
 
   it('should return all articles', () => {
     const articles = Article.all;

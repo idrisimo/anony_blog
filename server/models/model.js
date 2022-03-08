@@ -1,5 +1,5 @@
-const { articles } = require("../data")
-const articlesData = articles
+const articlesData = require("../data")
+
 
 class Article{
     constructor(data){
@@ -9,6 +9,7 @@ class Article{
       this.description = data.description
       this.comments = data.comments
       this.reactions = data.reactions
+      this.giphys = data.giphy
     }
     static get all(){
       const articles = articlesData.map((article) => new Article(article));
@@ -17,6 +18,7 @@ class Article{
     }
     static create (article) {
       const newArticleId = articlesData.length +1;
+
       const newArticle = new Article({id:newArticleId, ...article});
       articlesData.push(newArticle);
       return  articlesData;
