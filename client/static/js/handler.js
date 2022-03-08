@@ -8,7 +8,6 @@ function submitArticle(event) {
             description: event.target['articleText'].value,
             createdAt: new Date()
         };
-        console.log(articleData)
         const options = {
             method: 'POST',
             body: JSON.stringify(articleData),
@@ -47,7 +46,9 @@ function successAlert(message, type) {
     alertWrapper.append(btn)
     const submitAlert = document.getElementById('submitAlert')
     submitAlert.append(alertWrapper)
- 
 }
+
+
+
 
 module.exports = { submitArticle }
