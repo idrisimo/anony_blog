@@ -1,5 +1,5 @@
-const { articles } = require("../data")
-const articlesData = articles
+const articlesData = require("../data")
+
 
 class Article{
     constructor(data){
@@ -17,6 +17,7 @@ class Article{
     }
     static create (article) {
       const newArticleId = articlesData.length +1;
+
       const newArticle = new Article({id:newArticleId, ...article});
       articlesData.push(newArticle);
       return  articlesData;

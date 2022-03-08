@@ -1,7 +1,6 @@
 const express = require('express');
 const Article = require('../models/model')
 const router = express.Router()
-//const articles = require('../data')
 
 router.get('/articles', (req,res) => {
   const articlesData = Article.all
