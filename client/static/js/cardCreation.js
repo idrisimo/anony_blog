@@ -36,11 +36,11 @@ function cardTemplate(data) {
                         <span
                             class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger comment-pill">
                             99+
-                            <span class="visually-hidden">unread messages</span>
+                            <span class="visually-hidden">Comments</span>
                     </i>
                 </a>
                 <a href="">
-                    <i class="fa-solid fa-face-smile"></i>
+                    <i>&#129409</i>
                 </a>
             </div>
             <small class="text-muted text-end">${data['createdAt']}</small>
