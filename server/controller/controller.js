@@ -15,7 +15,7 @@ router.post('/create', (req,res) => {
 
 router.post('/update', (req, res) => {
   const data = req.body
-  const articleToUpdate = Article.updateById(data)
+  const articleToUpdate = Article.updateReactionById(data)
   console.log(articleToUpdate)
   res.status(201).send(articleToUpdate)
 })

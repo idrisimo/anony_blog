@@ -7,10 +7,10 @@ function buildDeck() {
         .then((response) => response.json())
         .then((data) => {
             const wrapper = document.getElementById('cards')
-            
+            deckCount = 0;
             for (index in data) {
                 const card = cardTemplate(data[index])
-
+                deckCount += 1
                 wrapper.insertAdjacentHTML('afterbegin', card)
             }
 
@@ -122,10 +122,11 @@ function showComments(data,id){
     </div>`
 }
 
-function removeCards(event) {
+function removeCards() {
     // Skywalker in the jedi temple.
     console.log('removing cards')
     const wrapper = document.getElementById('cards');
+    console.log()
     let child = wrapper.lastElementChild; 
     while (child) {
         wrapper.removeChild(child)

@@ -23,7 +23,7 @@ class Article{
       articlesData.push(newArticle);
       return  articlesData;
     }
-    static updateById (reactionData) {
+    static updateReactionById (reactionData) {
       const id = reactionData.id;
       const reaction = reactionData.reactions
       const articleData = articlesData.filter((article) => article.id === id)
