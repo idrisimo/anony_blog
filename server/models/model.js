@@ -13,7 +13,7 @@ class Article{
     }
     static get all(){
       const articles = articlesData.map((article) => new Article(article));
-      console.log(articles)
+      console.log(articles[3])
       return articles
     }
     static create (article) {
@@ -23,11 +23,16 @@ class Article{
       articlesData.push(newArticle);
       return  articlesData;
     }
-    static updateById (reactionData) {
-      const id = reactionData.id;
+    static updateReactionById (reactionData) {
+      const id = reactionData.id - 1;
+
       const reaction = reactionData.reactions
-      const articleData = articlesData.filter((article) => article.id === id)
-      articleData[0].reactions.push(reaction)
+
+      // const articleData = articlesData.filter((article) => article.id === id)
+
+      articlesData[id].reactions.push(reaction)
+      // console.log(articlesData[id])
+      return articlesData;
     }
   }
   module.exports = Article

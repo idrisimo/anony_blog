@@ -1,6 +1,5 @@
 
 function submitArticle(event) {
-    event.preventDefault()
     console.log('form submitted')
     try {
         const articleData = {
@@ -8,8 +7,10 @@ function submitArticle(event) {
             description: event.target['articleText'].value,
             createdAt: new Date(),
             comments: [null],
-            reactions: [null]
+            reactions: [null],
+            giphys: [null]
         };
+
         const options = {
             method: 'POST',
             body: JSON.stringify(articleData),
