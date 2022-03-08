@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="bundle.js"></script>
+    <script defer src="/static/js/api.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="static/css/main.css">
+    <link rel="icon" href="./static/image/favicon-32x32.png">
+
+    <title>Anony-blog</title>
+</head>
+
+<body>
+    <header>
+        <div> <img src="" alt=""></div>
+        <!--Add logo-->
+    </header>
+    <main>
+        <div id="submitAlert"></div>
+        <div class="hero text-center">
+
+            <p class="hero-text">welcome to anonyblog <br> share your own thoughts.</p>
+            <button class="btn btn-primary hero-btn" data-bs-toggle="modal"
+                data-bs-target="#articleModal">Start</button>
+        </div>
+
+        <section id="articles"class="container mt-5">
+            <div id="cards" class="row row-cols-1 row-cols-md-2 g-4">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fa-solid fa-face-smile-beam "></i>
+                            <i class="fa-solid fa-face-smile-beam "></i>
+                            <i class="fa-solid fa-face-smile-beam "></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in
+                                to additional content. This content is a little bit longer.</p>
+                        </div>
+                        <div class="card-footer">
+                            <div>
+                                <a href="#" class="comment-icon-format me-3">
+
+                                    <i class="fa-solid fa-comment">
+                                        <span
+                                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger comment-pill">
+                                            99+
+                                            <span class="visually-hidden">unread messages</span>
+                                    </i>
+                                </a>
+                                <a href="">
+                                    <i class="fa-solid fa-face-smile"></i>
+                                </a>
+                            </div>
+                            <small class="text-muted text-end">Last updated 3 mins ago</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in
+                                to additional content. This content is a little bit longer.</p>
+                        </div>
+                        <div class="card-footer">
+                            <div>
+                                <i class="fa-solid fa-comment"></i>
+                                <i class="fa-solid fa-face-smile"></i>
+                            </div>
+                            <small class="text-muted text-end">Last updated 3 mins ago</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in
+                                to additional content.</p>
+                        </div>
+                        <div class="card-footer">
+                            <div>
+                                <i class="fa-solid fa-comment"></i>
+                                <i class="fa-solid fa-face-smile"></i>
+                            </div>
+                            <small class="text-muted text-end">Last updated 3 mins ago</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in
+                                to additional content. This content is a little bit longer.</p>
+                        </div>
+                        <div class="card-footer">
+                            <div>
+                                <i class="fa-solid fa-comment"></i>
+                                <i class="fa-solid fa-face-smile"></i>
+                            </div>
+                            <small class="text-muted text-end">Last updated 3 mins ago</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="modal fade" id="articleModal" tabindex="-1" aria-labelledby="articleModal" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="articleModal">Modal title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="userForm">
+                                <input id="articleTitle" type="text" placeholder="enter title">
+                                <textarea name="" id="articleText" rows="10" class="textarea-format"
+                                    placeholder="What you thinking"></textarea>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="text" id="giphyinput">
+                            <button type="button" class="btn btn-warning" id="giphybut" button type="button">GIPHY</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <input id="submitArticle" type="submit" class="btn btn-primary" form="userForm" value="Submit">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+
+    </footer>
+
+
+
+</body>
+
+
+</html>
