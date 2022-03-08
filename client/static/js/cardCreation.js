@@ -1,7 +1,7 @@
 
 
 function buildDeck() {
-
+    console.log('building deck')
     fetch('http://localhost:3000/articles')
         .then((response) => response.json())
         .then((data) => {
@@ -11,6 +11,7 @@ function buildDeck() {
                 const card = cardTemplate(data[index])
                 wrapper.insertAdjacentHTML('afterbegin', card)
             }
+
             submitReaction()
         })
 }
@@ -89,9 +90,9 @@ function cardTemplate(data) {
 return template
 }
 
-function removeCards(event) {
+function removeCards() {
     // Skywalker in the jedi temple.
-    event.preventDefault()
+    console.log('removing cards')
     const wrapper = document.getElementById('cards');
     let child = wrapper.lastElementChild; 
     while (child) {
@@ -104,8 +105,9 @@ function submitReaction() {
     const reactionForm = document.querySelector('#reactionForm')
     reactionForm.addEventListener('click', (event) => {
         event.preventDefault()
+        console.log(event)
         reactionData = {
-            id: 1,
+            id: 4,
             reactions: 'U+1F624'
         }
 
@@ -118,9 +120,9 @@ function submitReaction() {
         }
   
         fetch('http://localhost:3000/update',options)
+        removeCards()
+        buildDeck()
     })
 }
-
-
 
 module.exports = { buildDeck, removeCards, submitReaction }

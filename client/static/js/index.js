@@ -12,8 +12,8 @@ document.onload = () => {
 
 // event listeners
 articleForm.addEventListener('submit', (event) => {
-    submitArticle(event);
-    removeCards(event);
+    submitArticle();
+    removeCards();
     buildDeck()
 })
 
