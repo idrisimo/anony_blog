@@ -28,21 +28,18 @@ describe('API server', () => {
      request(api).get('/articles').expect(200, done);
    });
 
-  //  it('responds to post /articles with status 201', (done) => {
-  //    request(api)
-  //    .post('/articles'
-  //    .send(testArticle))
-  //    .set('Accept', /application\/json/)
-  //    .expect(201)
-  //    .expect({id:12, ...testArticle}, done);
-  //  })
+    request(api)
 
-  //  it('retrieves article by id', (done) => {
-  //    request(api)
-  //    .get('/articles/1')
-  //    .expect(200)
-  //    .expect({id:3, title:' article 1', createdAt:"", description: "this is a good article"}, done)
 
-  //  })
+
+    it('responds to a unknown cat id with a 404', (done) => {
+        request(api).get('/articles/345').expect(404).expect({}, done);
+    });
+
+     it('responds to non existing paths with 404', (done) => {
+        request(api).get('/no').expect(404, done);
+    });
+
+   
 
 })
