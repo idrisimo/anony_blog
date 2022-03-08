@@ -8,7 +8,6 @@ function submitArticle(event) {
             description: event.target['articleText'].value,
             createdAt: new Date()
         };
-        console.log(articleData)
         const options = {
             method: 'POST',
             body: JSON.stringify(articleData),
