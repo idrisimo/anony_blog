@@ -35,7 +35,6 @@ function reactionsHandler(reactionsArray) {
             summary[reaction] = 1
         }
     }
-    console.log("summary", summary)
     for (const [key, value] of Object.entries(summary)) {
 
         const keyClean = `&#x${key.split("+")[1]}`
