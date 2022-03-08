@@ -27,8 +27,8 @@
 
 
 .card-footer {
-display:flex;
-justify-content: space-between;
+    display:flex;
+    justify-content: space-between;
 }
 
 .comment-icon-format {
@@ -45,8 +45,14 @@ justify-content: space-between;
 
 .emoji-pill-format {
     transform: translate(-50%, -60%);
+    text-decoration: none;
+}
+
+.emoji-btn-format {
+    border: none;
+    background: none;
 }
 
 .textarea-format {
-width: 100%;
+    width: 100%;
 }

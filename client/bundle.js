@@ -10,20 +10,44 @@ function buildDeck() {
             
             for (index in data) {
                 const card = cardTemplate(data[index])
-                console.log(card)
-                // wrapper.append(card)
                 wrapper.insertAdjacentHTML('afterbegin', card)
             }
+            submitReaction()
         })
 }
 
+function reactionsHandler(reactionsArray) {
+    const summary = {};
+    let reactionTemplate = '';
+    for (const [index, reaction] of Object.entries(reactionsArray)) {
+        if (reaction === null){
+            summary[reaction] = 'No reactions'
+        } else if (summary[reaction]) {
+            summary[reaction] += 1;
+        } else {
+            summary [reaction] = 1
+        }
+    }
+    
+    for (const [key, value] of Object.entries(summary)) {
+        const keyClean = `&#x${key.split("+")[1]}`
+        if (value != 'No reactions') {
+            reactionTemplate += `<span>${keyClean}: ${value}</span>`
+        } else {
+            reactionTemplate += `<span>${value}</span>`
+        }
+        
+    }
+    return reactionTemplate
+}
+
+
 function cardTemplate(data) {
+    const reactionsSummary = reactionsHandler(data['reactions'])
     const template = `<div id="cardNum${data['id']}"class="col">
     <div class="card">
         <div class="card-header">
-            <i class="fa-solid fa-face-smile-beam "></i>
-            <i class="fa-solid fa-face-smile-beam "></i>
-            <i class="fa-solid fa-face-smile-beam "></i>
+            ${reactionsSummary}
         </div>
         <div class="card-body">
             <h5 class="card-title">${data['title']}</h5>
@@ -37,12 +61,27 @@ function cardTemplate(data) {
                         <span
                             class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger comment-pill">
                             99+
-                            <span class="visually-hidden">unread messages</span>
+                            <span class="visually-hidden">Comments</span>
                     </i>
                 </a>
-                <a href="">
-                    <i class="fa-solid fa-face-smile"></i>
-                </a>
+                <form id="reactionForm">
+                    <button value="&#x1F642" class="emoji-btn-format">&#x1F642</button>
+                
+                
+                    <button value="&#x1F610" class="emoji-btn-format">&#x1F610</button>
+                
+                
+                    <button value="&#x1F602" class="emoji-btn-format">&#x1F602</button>
+                
+                
+                    <button value="&#x2639" class="emoji-btn-format">&#x2639</button>
+                
+                
+                    <button value="&#x1F621" class="emoji-btn-format">&#x1F621</button>
+                
+                
+                    <button value="&#x1F600" class="emoji-btn-format">&#x1F600</button>
+                </form>
             </div>
             <small class="text-muted text-end">${data['createdAt']}</small>
         </div>
@@ -62,7 +101,30 @@ function removeCards(event) {
     }
 }
 
-module.exports = { buildDeck, removeCards }
+function submitReaction() {
+    const reactionForm = document.querySelector('#reactionForm')
+    reactionForm.addEventListener('click', (event) => {
+        event.preventDefault()
+        reactionData = {
+            id: 1,
+            reactions: 'U+1F624'
+        }
+
+        const options = {
+            method: 'POST',
+            body: JSON.stringify(reactionData),
+            headers: {
+                "Content-Type": "application/json",
+            }
+        }
+  
+        fetch('http://localhost:3000/update',options)
+    })
+}
+
+
+
+module.exports = { buildDeck, removeCards, submitReaction }
 
 },{}],2:[function(require,module,exports){
 
@@ -73,9 +135,10 @@ function submitArticle(event) {
         const articleData = {
             title: event.target['articleTitle'].value,
             description: event.target['articleText'].value,
-            createdAt: new Date()
+            createdAt: new Date(),
+            comments: [null],
+            reactions: [null]
         };
-        console.log(articleData)
         const options = {
             method: 'POST',
             body: JSON.stringify(articleData),
@@ -114,20 +177,25 @@ function successAlert(message, type) {
     alertWrapper.append(btn)
     const submitAlert = document.getElementById('submitAlert')
     submitAlert.append(alertWrapper)
- 
 }
+
+
+
 
 module.exports = { submitArticle }
 
 },{}],3:[function(require,module,exports){
 const { submitArticle } = require("./handler");
-const {buildDeck, removeCards} = require("./cardCreation")
+const {buildDeck, removeCards, submitReaction} = require("./cardCreation")
+
+buildDeck()
 
 // selectors
 const articleForm = document.querySelector('#userForm');
-
-const submitAlert = document.getElementById('submitAlert')
-
+document.onload = () => {
+    const reactionForm = document.querySelector('#reactionForm')
+    console.log(document.querySelector('#reactionForm'))
+}
 
 // event listeners
 articleForm.addEventListener('submit', (event) => {
@@ -135,6 +203,11 @@ articleForm.addEventListener('submit', (event) => {
     removeCards(event);
     buildDeck()
 })
-document.onload = buildDeck()
+
+
+
+// reactionForm.addEventListener('click', () => {console.log('cliclclc')})
+
+
 
 },{"./cardCreation":1,"./handler":2}]},{},[3]);
