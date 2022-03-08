@@ -1,10 +1,10 @@
 const express = require('express');
-//const cors = require('cors'); // TODO install cors npm package
+const cors = require('cors'); // TODO install cors npm package
 const app = express();
 
 
 app.use(express.json())
-//app.use(cors());
+app.use(cors());
 
 
 const searchRoutes = require('./controller/controller.js')
