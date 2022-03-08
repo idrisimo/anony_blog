@@ -4,6 +4,4 @@ const articles =  [
     { id:3, title: "article 3", createdAt:"", description:"Very good article 3",comments: ["I hate this post", "bad post"],reactions: "U+1F600"},
     { id:4, title: "article 4", createdAt:"", description:"Very good article 4",comments: ["I hate this post", "bad post"],reactions: "U+1F600"}
 ]
-module.exports = {
-    articles
-}
+module.exports = articles
