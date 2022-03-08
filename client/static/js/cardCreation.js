@@ -17,8 +17,8 @@ function buildDeck() {
 function reactionsHandler(reactionsArray) {
     const summary = {};
     let reactionTemplate = '';
-    for (const reaction of reactionsArray) {
-        if (reaction=== ""){
+    for (const [index, reaction] of Object.entries(reactionsArray)) {
+        if (reaction === null){
             summary[reaction] = 'No reactions'
         } else if (summary[reaction]) {
             summary[reaction] += 1;
@@ -29,8 +29,7 @@ function reactionsHandler(reactionsArray) {
     
     for (const [key, value] of Object.entries(summary)) {
         const keyClean = `&#x${key.split("+")[1]}`
-        console.log(keyClean, value)
-        if (value != 'no reactions') {
+        if (value != 'No reactions') {
             reactionTemplate += `<span>${keyClean}: ${value}</span>`
         } else {
             reactionTemplate += `<span>${value}</span>`
