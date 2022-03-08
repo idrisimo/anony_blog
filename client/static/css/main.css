@@ -48,6 +48,11 @@
     text-decoration: none;
 }
 
+.emoji-btn-format {
+    border: none;
+    background: none;
+}
+
 .textarea-format {
     width: 100%;
 }

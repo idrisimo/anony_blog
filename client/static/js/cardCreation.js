@@ -11,6 +11,7 @@ function buildDeck() {
                 const card = cardTemplate(data[index])
                 wrapper.insertAdjacentHTML('afterbegin', card)
             }
+            submitReaction()
         })
 }
 
@@ -42,7 +43,6 @@ function reactionsHandler(reactionsArray) {
 
 function cardTemplate(data) {
     const reactionsSummary = reactionsHandler(data['reactions'])
-    console.log(data['title'])
     const template = `<div id="cardNum${data['id']}"class="col">
     <div class="card">
         <div class="card-header">
@@ -63,24 +63,24 @@ function cardTemplate(data) {
                             <span class="visually-hidden">Comments</span>
                     </i>
                 </a>
-                <a class="emoji-pill-format" href="#">
-                    <span>&#x1F642</span>
-                </a>
-                <a class="emoji-pill-format" href="#">
-                    <span>&#x1F610</span>
-                </a>
-                <a class="emoji-pill-format" href="#">
-                    <span>&#x1F602</span>
-                </a>
-                <a class="emoji-pill-format" href="#">
-                    <span>&#x2639</span>
-                </a>
-                <a class="emoji-pill-format" href="#">
-                    <span>&#x1F621</span>
-                </a>
-                <a class="emoji-pill-format" href="#">
-                    <span>&#x1F600</span>
-                </a>
+                <form id="reactionForm">
+                    <button value="&#x1F642" class="emoji-btn-format">&#x1F642</button>
+                
+                
+                    <button value="&#x1F610" class="emoji-btn-format">&#x1F610</button>
+                
+                
+                    <button value="&#x1F602" class="emoji-btn-format">&#x1F602</button>
+                
+                
+                    <button value="&#x2639" class="emoji-btn-format">&#x2639</button>
+                
+                
+                    <button value="&#x1F621" class="emoji-btn-format">&#x1F621</button>
+                
+                
+                    <button value="&#x1F600" class="emoji-btn-format">&#x1F600</button>
+                </form>
             </div>
             <small class="text-muted text-end">${data['createdAt']}</small>
         </div>
@@ -100,4 +100,27 @@ function removeCards(event) {
     }
 }
 
-module.exports = { buildDeck, removeCards }
+function submitReaction() {
+    const reactionForm = document.querySelector('#reactionForm')
+    reactionForm.addEventListener('click', (event) => {
+        event.preventDefault()
+        reactionData = {
+            id: 1,
+            reactions: 'U+1F624'
+        }
+
+        const options = {
+            method: 'POST',
+            body: JSON.stringify(reactionData),
+            headers: {
+                "Content-Type": "application/json",
+            }
+        }
+  
+        fetch('http://localhost:3000/update',options)
+    })
+}
+
+
+
+module.exports = { buildDeck, removeCards, submitReaction }
