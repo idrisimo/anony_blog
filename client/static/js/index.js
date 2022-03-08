@@ -1,11 +1,14 @@
 const { submitArticle } = require("./handler");
-const {buildDeck, removeCards} = require("./cardCreation")
+const {buildDeck, removeCards, submitReaction} = require("./cardCreation")
+
+buildDeck()
 
 // selectors
 const articleForm = document.querySelector('#userForm');
-
-const submitAlert = document.getElementById('submitAlert')
-
+document.onload = () => {
+    const reactionForm = document.querySelector('#reactionForm')
+    console.log(document.querySelector('#reactionForm'))
+}
 
 // event listeners
 articleForm.addEventListener('submit', (event) => {
@@ -13,4 +16,9 @@ articleForm.addEventListener('submit', (event) => {
     removeCards(event);
     buildDeck()
 })
-document.onload = buildDeck()
+
+
+
+// reactionForm.addEventListener('click', () => {console.log('cliclclc')})
+
+

@@ -6,7 +6,9 @@ function submitArticle(event) {
         const articleData = {
             title: event.target['articleTitle'].value,
             description: event.target['articleText'].value,
-            createdAt: new Date()
+            createdAt: new Date(),
+            comments: [null],
+            reactions: [null]
         };
         const options = {
             method: 'POST',
@@ -46,7 +48,9 @@ function successAlert(message, type) {
     alertWrapper.append(btn)
     const submitAlert = document.getElementById('submitAlert')
     submitAlert.append(alertWrapper)
- 
 }
+
+
+
 
 module.exports = { submitArticle }
