@@ -45,7 +45,7 @@ Currently there are x unique endpoints
 ## Changelog
 
 ## Bugs
-[] TBC
+-[] TBC
 
 ## Wins and Challenges
 
