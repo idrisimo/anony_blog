@@ -10,6 +10,7 @@ function buildDeck() {
             
             for (index in data) {
                 const card = cardTemplate(data[index])
+
                 wrapper.insertAdjacentHTML('afterbegin', card)
             }
             submitReaction()

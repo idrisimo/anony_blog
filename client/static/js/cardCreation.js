@@ -9,6 +9,7 @@ function buildDeck() {
             
             for (index in data) {
                 const card = cardTemplate(data[index])
+
                 wrapper.insertAdjacentHTML('afterbegin', card)
             }
             submitReaction()
@@ -56,7 +57,7 @@ function cardTemplate(data) {
             <div>
                 <a href="#" class="comment-icon-format me-3">
 
-                    <i class="fa-solid fa-comment">
+                    <i class="fa-solid fa-comment" id="comm${data['id']}">
                         <span
                             class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger comment-pill">
                             99+
@@ -87,6 +88,36 @@ function cardTemplate(data) {
     </div>
 </div>`
 return template
+}
+
+function showComments(data,id){
+    let commBoxes = document.querySelectorAll('#comm*')
+    for(let i = 0;i<commBoxes.length;i++){
+        if(id==commBoxes[i]){
+            console.log(data[id])
+        }
+    }
+    let commentTemplate = `<p>${data['comments']}</p><br>`
+    let template = `
+    <div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Comments</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>${commentTemplate}</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+    </div>`
 }
 
 function removeCards(event) {

@@ -9,6 +9,7 @@ class Article{
       this.description = data.description
       this.comments = data.comments
       this.reactions = data.reactions
+      this.giphys = data.giphy
     }
     static get all(){
       const articles = articlesData.map((article) => new Article(article));
