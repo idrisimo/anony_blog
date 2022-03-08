@@ -4,6 +4,6 @@ const articles =  [
     { id:3, title: "article 3", createdAt:"", description:"Very good article 3"},
     { id:4, title: "article 4", createdAt:"", description:"Very good article 4"}
 ]
-module.exports = {
-    articles
-}
+
+module.exports = articles
+
