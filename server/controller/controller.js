@@ -19,15 +19,5 @@ router.post('/create', (req,res) => {
   res.status(201).send(newArticle)
 })
 
-router.get('/comments/:id', (req,res) => {
-  const commentData = comments;
-  const commentArray = [];
-  for(let i = 0;i<articles.length;i++){
-    if(articles.params.id[i] === commentData.params.id[i]){
-      commentArray.append(comments.keys("comment"[i]))
-      res.send(commentArray)
-    }
-  }
-})
 
 module.exports = router
