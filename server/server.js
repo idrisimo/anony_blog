@@ -1,5 +1,5 @@
 const express = require('express');
-const cors = require('cors'); // TODO install cors npm package
+const cors = require('cors');
 const app = express();
 
 
@@ -13,7 +13,5 @@ app.use('/', searchRoutes)
 app.get('/', (req, res) => {
     res.send('Hello there test!');
 });
-
-
 
 module.exports = app;
