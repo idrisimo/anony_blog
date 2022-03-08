@@ -1,7 +1,7 @@
 let url = "";
 let searchQuery = "hi";
 let but = document.getElementById("giphybut")
-console.log(but)
+// console.log(but)
 but.addEventListener('click', () => {
     sendApiRequest();
 })

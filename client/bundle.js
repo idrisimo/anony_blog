@@ -1,20 +1,25 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 
-
 function buildDeck() {
     console.log('building deck')
     fetch('http://localhost:3000/articles')
         .then((response) => response.json())
         .then((data) => {
             const wrapper = document.getElementById('cards')
-            deckCount = 0;
             for (index in data) {
-                const card = cardTemplate(data[index])
-                deckCount += 1
+                let cardId = parseInt(index)
+                cardId += 1
+                const card = cardTemplate(data[index], cardId)
+                const cardNum = document.getElementById(`cardNum${cardId}`)
+                if (cardNum) {
+                    cardNum.remove()
+                }
+
                 wrapper.insertAdjacentHTML('afterbegin', card)
             }
 
             submitReaction()
+
         })
 }
 
@@ -22,33 +27,35 @@ function reactionsHandler(reactionsArray) {
     const summary = {};
     let reactionTemplate = '';
     for (const [index, reaction] of Object.entries(reactionsArray)) {
-        if (reaction === null){
+        if (reaction === null) {
             summary[reaction] = 'No reactions'
         } else if (summary[reaction]) {
             summary[reaction] += 1;
         } else {
-            summary [reaction] = 1
+            summary[reaction] = 1
         }
     }
-    
+    console.log("summary", summary)
     for (const [key, value] of Object.entries(summary)) {
+
         const keyClean = `&#x${key.split("+")[1]}`
         if (value != 'No reactions') {
-            reactionTemplate += `<span>${keyClean}: ${value}</span>`
-        } else {
-            reactionTemplate += `<span>${value}</span>`
-        }
-        
+            reactionTemplate += `<span>${keyClean}: ${value}</span>`}
+        // } else {
+        //     reactionTemplate += `<span>${value}</span>`
+        // }
     }
     return reactionTemplate
 }
 
 
-function cardTemplate(data) {
+function cardTemplate(data, index) {
+
     const reactionsSummary = reactionsHandler(data['reactions'])
-    const template = `<div id="cardNum${data['id']}"class="col">
+    const template = `<div id="cardNum${index}"class="col">
     <div class="card">
         <div class="card-header">
+        <text>Reactions  </text>
             ${reactionsSummary}
         </div>
         <div class="card-body">
@@ -66,37 +73,27 @@ function cardTemplate(data) {
                             <span class="visually-hidden">Comments</span>
                     </i>
                 </a>
-                <form id="reactionForm">
-                    <button value="&#x1F642" class="emoji-btn-format">&#x1F642</button>
-                
-                
-                    <button value="&#x1F610" class="emoji-btn-format">&#x1F610</button>
-                
-                
-                    <button value="&#x1F602" class="emoji-btn-format">&#x1F602</button>
-                
-                
-                    <button value="&#x2639" class="emoji-btn-format">&#x2639</button>
-                
-                
-                    <button value="&#x1F621" class="emoji-btn-format">&#x1F621</button>
-                
-                
-                    <button value="&#x1F600" class="emoji-btn-format">&#x1F600</button>
+                <form id="reactionForm${index}">
+                    <button value="U+1F642 ${index}" class="emoji-btn-format">&#x1F642</button>
+                    <button value="U+1F610 ${index}" class="emoji-btn-format">&#x1F610</button>
+                    <button value="U+1F602 ${index}" class="emoji-btn-format">&#x1F602</button>
+                    <button value="U+2639 ${index}" class="emoji-btn-format">&#x2639</button>
+                    <button value="U+1F621 ${index}" class="emoji-btn-format">&#x1F621</button>
+                    <button value="U+1F600 ${index}" class="emoji-btn-format">&#x1F600</button>
                 </form>
             </div>
             <small class="text-muted text-end">${data['createdAt']}</small>
         </div>
     </div>
 </div>`
-return template
+    return template
 }
 
-function showComments(data,id){
+function showComments(data, id) {
     let commBoxes = document.querySelectorAll('#comm*')
-    for(let i = 0;i<commBoxes.length;i++){
-        if(id==commBoxes[i]){
-            console.log(data[id])
+    for (let i = 0; i < commBoxes.length; i++) {
+        if (id == commBoxes[i]) {
+            // console.log(data[id])
         }
     }
     let commentTemplate = `<p>${data['comments']}</p><br>`
@@ -122,40 +119,51 @@ function showComments(data,id){
     </div>`
 }
 
-function removeCards() {
-    // Skywalker in the jedi temple.
-    console.log('removing cards')
-    const wrapper = document.getElementById('cards');
-    console.log()
-    let child = wrapper.lastElementChild; 
-    while (child) {
-        wrapper.removeChild(child)
-        child = wrapper.lastElementChild;
+function removeCards(data) {
+
+    const numOfCards = document.querySelectorAll(`[id*="cardNum"]`)
+    console.log(numOfCards.length, data.length)
+    if (numOfCards.length > data.length) {
+        for (let i = data.length; i < numOfCards.length; i++) {
+            console.log(document.getElementById(`cardNum${i}`))
+        }
     }
+    console.log(numOfCards.length, data.length)
+    // Skywalker in the jedi temple.
+    // console.log('removing cards')
+    // const wrapper = document.getElementById('cards');
+    // console.log()
+    // let child = wrapper.lastElementChild; 
+    // while (child) {
+    //     wrapper.removeChild(child)
+    //     child = wrapper.lastElementChild;
+    // }
 }
 
 function submitReaction() {
-    const reactionForm = document.querySelector('#reactionForm')
-    reactionForm.addEventListener('click', (event) => {
-        event.preventDefault()
-        console.log(event)
-        reactionData = {
-            id: 4,
-            reactions: 'U+1F624'
-        }
+    const reactionForm = document.querySelectorAll(`[id*="reactionForm"]`)
+    for (let i=0; i< reactionForm.length; i++) {
+        reactionForm[i].addEventListener('click', (event) => {
+            event.preventDefault()
+            valueArray = event.target['value'].split(" ")
 
-        const options = {
-            method: 'POST',
-            body: JSON.stringify(reactionData),
-            headers: {
-                "Content-Type": "application/json",
+            reactionData = {
+                id: parseInt(valueArray[1]),
+                reactions: valueArray[0]
             }
-        }
-  
-        fetch('http://localhost:3000/update',options)
-        removeCards()
-        buildDeck()
-    })
+            const options = {
+                method: 'POST',
+                body: JSON.stringify(reactionData),
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            }
+            fetch('http://localhost:3000/update', options)
+
+            buildDeck()
+
+        })
+    }
 }
 
 module.exports = { buildDeck, removeCards, submitReaction }
@@ -163,7 +171,6 @@ module.exports = { buildDeck, removeCards, submitReaction }
 },{}],2:[function(require,module,exports){
 
 function submitArticle(event) {
-    event.preventDefault()
     console.log('form submitted')
     try {
         const articleData = {
@@ -171,8 +178,10 @@ function submitArticle(event) {
             description: event.target['articleText'].value,
             createdAt: new Date(),
             comments: [null],
-            reactions: [null]
+            reactions: [null],
+            giphys: [null]
         };
+
         const options = {
             method: 'POST',
             body: JSON.stringify(articleData),
@@ -221,20 +230,19 @@ module.exports = { submitArticle }
 },{}],3:[function(require,module,exports){
 const { submitArticle } = require("./handler");
 const {buildDeck, removeCards, submitReaction} = require("./cardCreation")
+window.onload = () => {
+    buildDeck()
+}
 
-buildDeck()
 
 // selectors
 const articleForm = document.querySelector('#userForm');
-document.onload = () => {
-    const reactionForm = document.querySelector('#reactionForm')
-    console.log(document.querySelector('#reactionForm'))
-}
+
 
 // event listeners
 articleForm.addEventListener('submit', (event) => {
-    submitArticle();
-    removeCards();
+    event.preventDefault()
+    submitArticle(event);
     buildDeck()
 })
 
