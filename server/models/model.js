@@ -9,18 +9,16 @@ class Article{
       this.description = data.description
       this.comments = data.comments
       this.reactions = data.reactions
-      this.giphys = data.giphy
+      this.giphys = data.giphys
     }
     static get all(){
       const articles = articlesData.map((article) => new Article(article));
-      console.log(articles[3])
       return articles
     }
     static create (article) {
       const newArticleId = articlesData.length +1;
       
       const newArticle = new Article({id:newArticleId, ...article});
-      console.log('model ',newArticle)
       articlesData.push(newArticle);
       return  articlesData;
     }
@@ -38,7 +36,6 @@ class Article{
       // const articleData = articlesData.filter((article) => 
       // article.id === id)
       articlesData[id].comments.push(comment)
-      console.log(comment)
     }
   }
   module.exports = Article

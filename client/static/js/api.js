@@ -1,7 +1,3 @@
-let url = "";
-let searchQuery = "hi";
-let but = document.getElementById("giphybut")
-// console.log(but)
 but.addEventListener('click', () => {
     sendApiRequest();
 })
@@ -19,12 +15,8 @@ function sendApiRequest(){
         console.log(json.data[randomNum].images.fixed_height.url)
         let imgPath = json.data[randomNum].images.fixed_height.url
 
-        // let img = document.createElement("img")
         let img = `<img src="${imgPath}">`
         //img.setAttribute("src", imgPath)
         document.getElementById("userForm").insertAdjacentHTML('beforeend',img)
-        // document.getElementById("articleText").appendChild(img)
-        // document.getElementById("articleText").value += img
-        // document.getElementById("articleText").innerHTML += img
     })
 }
