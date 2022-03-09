@@ -31,33 +31,8 @@ function buildDeck() {
         return true
 }
 
-function reBuildDeck() {
-    console.log('---------building deck---------')
-    fetch('http://localhost:3000/articles')
-        .then((response) => response.json())
-        .then((data) => {
-            // Get Card wrapper
-            const wrapper = document.getElementById('cards')
-            console.log(data)
-            // Loop for building cards
-            for (index in data) {
-                console.log(`building card ${index}`)
-                let cardId = parseInt(index)
-                cardId += 1
+            submitReaction()
 
-                // Constructs new deck to be place in html
-                const card = cardTemplate(data[index], cardId)
-
-                // Removes old deck on html page
-                removeStaleDeck(cardId)
-
-                console.log('inserting new card')
-                // Feeds new deck to html page
-                wrapper.insertAdjacentHTML('afterbegin', card)
-            }
-            // initialises event controller after cards added to deck
-        })
-}
 
 
 const removeStaleDeck = (cardId) => {
@@ -75,7 +50,14 @@ function eventListernerController(){
     console.log('comments eventlistener initialised')
     showComments()
 }
-
+function showComments(){
+    let commBoxes = document.querySelectorAll(`[id*="comm"]`)
+    for(let i = 0;i<commBoxes.length;i++){
+        if(id==commBoxes[i]){
+            console.log(data[id])
+        }
+    }
+}
 
 function reactionsHandler(reactionsArray) {
     const summary = {};
@@ -94,6 +76,9 @@ function reactionsHandler(reactionsArray) {
         const keyClean = `&#x${key.split("+")[1]}`
         if (value != 'No reactions') {
             reactionTemplate += `<span>${keyClean}: ${value}</span>`}
+        // } else {
+        //     reactionTemplate += `<span>${value}</span>`
+        // }
     }
     return reactionTemplate
 }
@@ -200,6 +185,27 @@ function showComments(id){
     }
 }
 
+function removeCards(event) {
+    // Skywalker in the jedi temple.
+    event.preventDefault()
+    const wrapper = document.getElementById('cards');
+    let child = wrapper.lastElementChild; 
+    while (child) {
+        wrapper.removeChild(child)
+        child = wrapper.lastElementChild;
+    }
+    console.log(numOfCards.length, data.length)
+    // Skywalker in the jedi temple.
+    // console.log('removing cards')
+    // const wrapper = document.getElementById('cards');
+    // console.log()
+    // let child = wrapper.lastElementChild; 
+    // while (child) {
+    //     wrapper.removeChild(child)
+    //     child = wrapper.lastElementChild;
+    // }
+}
+
 function submitReaction() {
     const reactionForm = document.querySelectorAll(`[id*="reactionForm"]`)
     for (let i=0; i< reactionForm.length; i++) {
@@ -220,11 +226,10 @@ function submitReaction() {
             }
             fetch('http://localhost:3000/updatearticlereaction', options)
 
-            // buildDeck()
-            reBuildDeck()
+            buildDeck()
 
         })
     }
 }
 
-module.exports = { buildDeck, submitReaction, reBuildDeck, eventListernerController }
+module.exports = { buildDeck, removeCards, submitReaction }

@@ -10,6 +10,7 @@ function submitArticle(event) {
             reactions: [null],
             giphys: [null]
         };
+        console.log('submitarticle', articleData)
         const options = {
             method: 'POST',
             body: JSON.stringify(articleData),

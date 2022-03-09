@@ -1,8 +1,5 @@
 const { submitArticle } = require("./handler");
-const { buildDeck, reBuildDeck, eventListernerController } = require("./cardCreation")
-
-
-console.log('***********************************************************')
+const {buildDeck, removeCards, submitReaction} = require("./cardCreation")
 window.onload = () => {
     buildDeck()
     // eventListernerController()
@@ -13,8 +10,7 @@ window.onload = () => {
 console.log('***********************************************************')
 // selectors
 const articleForm = document.querySelector('#userForm');
-
-
+const toast = document.querySelector('.liveToast')
 
 // event listeners
 articleForm.addEventListener('submit', (event) => {
