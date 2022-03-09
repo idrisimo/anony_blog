@@ -1,48 +1,18 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+const {reactionsHandler, submitReaction} = require('./reactionController')
+const {showComments} = require('./commentController')
+
 function buildDeck() {
-    console.log('---------------building deck-----------')
+    console.log('building deck')
     fetch('http://localhost:3000/articles')
         .then((response) => response.json())
         .then((data) => {
             // Get Card wrapper
             const wrapper = document.getElementById('cards')
-            console.log(data)
+
             // Loop for building cards
             for (index in data) {
-                console.log(`building card ${index}`)
-                let cardId = parseInt(index)
-                cardId += 1
 
-                // Constructs new deck to be place in html
-                const card = cardTemplate(data[index], cardId)
-
-                // Removes old deck on html page
-                // removeStaleDeck(cardId)
-
-                console.log('inserting new card')
-                // Feeds new deck to html page
-                wrapper.insertAdjacentHTML('afterbegin', card)
-            }
-            // initialises event controller after cards added to deck
-            console.log('starting event listern initialisation')
-            eventListernerController()
-            console.log('event listeners ready')
-            
-        })
-        return true
-}
-
-function reBuildDeck() {
-    console.log('---------building deck---------')
-    fetch('http://localhost:3000/articles')
-        .then((response) => response.json())
-        .then((data) => {
-            // Get Card wrapper
-            const wrapper = document.getElementById('cards')
-            console.log(data)
-            // Loop for building cards
-            for (index in data) {
-                console.log(`building card ${index}`)
                 let cardId = parseInt(index)
                 cardId += 1
 
@@ -52,52 +22,34 @@ function reBuildDeck() {
                 // Removes old deck on html page
                 removeStaleDeck(cardId)
 
-                console.log('inserting new card')
                 // Feeds new deck to html page
                 wrapper.insertAdjacentHTML('afterbegin', card)
+                
             }
             // initialises event controller after cards added to deck
+            //  eventListernerController()
         })
+
 }
 
-
 const removeStaleDeck = (cardId) => {
-    console.log('removing stale card')
+
     const cardNum = document.getElementById(`cardNum${cardId}`)
     if (cardNum) {
         cardNum.remove()
     }
-    console.log('card removed')
+
 }
 
 function eventListernerController(){
-    console.log('reactions eventlistener initialised')
     submitReaction()
-    console.log('comments eventlistener initialised')
     showComments()
 }
 
 
-function reactionsHandler(reactionsArray) {
-    const summary = {};
-    let reactionTemplate = '';
-    for (const [index, reaction] of Object.entries(reactionsArray)) {
-        if (reaction === null) {
-            summary[reaction] = 'No reactions'
-        } else if (summary[reaction]) {
-            summary[reaction] += 1;
-        } else {
-            summary[reaction] = 1
-        }
-    }
-    for (const [key, value] of Object.entries(summary)) {
 
-        const keyClean = `&#x${key.split("+")[1]}`
-        if (value != 'No reactions') {
-            reactionTemplate += `<span>${keyClean}: ${value}</span>`}
-    }
-    return reactionTemplate
-}
+
+
 
 
 function cardTemplate(data, index) {
@@ -134,12 +86,12 @@ function cardTemplate(data, index) {
                     </i>
                 </a>
                 <form id="reactionForm${index}">
-                    <button value="U+1F642 ${index}" class="emoji-btn-format">&#x1F642</button>
-                    <button value="U+1F610 ${index}" class="emoji-btn-format">&#x1F610</button>
-                    <button value="U+1F602 ${index}" class="emoji-btn-format">&#x1F602</button>
-                    <button value="U+2639 ${index}" class="emoji-btn-format">&#x2639</button>
-                    <button value="U+1F621 ${index}" class="emoji-btn-format">&#x1F621</button>
-                    <button value="U+1F600 ${index}" class="emoji-btn-format">&#x1F600</button>
+                    <button type="button" value="U+1F642 ${index}" class="emoji-btn-format">&#x1F642</button>
+                    <button type="button" value="U+1F610 ${index}" class="emoji-btn-format">&#x1F610</button>
+                    <button type="button" value="U+1F602 ${index}" class="emoji-btn-format">&#x1F602</button>
+                    <button type="button" value="U+2639 ${index}" class="emoji-btn-format">&#x2639</button>
+                    <button type="button" value="U+1F621 ${index}" class="emoji-btn-format">&#x1F621</button>
+                    <button type="button" value="U+1F600 ${index}" class="emoji-btn-format">&#x1F600</button>
                 </form>
                 
             </div>
@@ -166,6 +118,11 @@ function cardTemplate(data, index) {
     return template
 }
 
+
+module.exports = { buildDeck, eventListernerController}
+
+},{"./commentController":2,"./reactionController":5}],2:[function(require,module,exports){
+
 function sendComments(comment){
     commentData = {
         id: parseInt(comment.target[1].value),
@@ -183,12 +140,9 @@ function sendComments(comment){
     }
 
     fetch('http://localhost:3000/updatearticlecomment', options)
-
-    // buildDeck()
-    reBuildDeck()
 }
 
-function showComments(id){
+function showComments(){
     let commBoxes = document.querySelectorAll(`[id^="commnum"]`)
     commBoxes = Array.from(commBoxes)
     for(let i = 0;i<commBoxes.length;i++){
@@ -201,36 +155,9 @@ function showComments(id){
     }
 }
 
-function submitReaction() {
-    const reactionForm = document.querySelectorAll(`[id*="reactionForm"]`)
-    for (let i=0; i< reactionForm.length; i++) {
-        reactionForm[i].addEventListener('click', (event) => {
-            event.preventDefault()
-            valueArray = event.target['value'].split(" ")
+module.exports = {sendComments, showComments}
 
-            const reactionData = {
-                id: parseInt(valueArray[1]),
-                reactions: valueArray[0]
-            }
-            const options = {
-                method: 'POST',
-                body: JSON.stringify(reactionData),
-                headers: {
-                    "Content-Type": "application/json",
-                }
-            }
-            fetch('http://localhost:3000/updatearticlereaction', options)
-
-            // buildDeck()
-            reBuildDeck()
-
-        })
-    }
-}
-
-module.exports = { buildDeck, submitReaction, reBuildDeck, eventListernerController }
-
-},{}],2:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 
 function submitArticle(event) {
     console.log('form submitted')
@@ -256,7 +183,7 @@ function submitArticle(event) {
         closeModalOnSuccess()
         successAlert('Journal entry submitted', 'success')
     } catch {
-
+        console.log()
     }
 }
 
@@ -286,20 +213,29 @@ function successAlert(message, type) {
 
 module.exports = { submitArticle }
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 const { submitArticle } = require("./handler");
-const { buildDeck, reBuildDeck, eventListernerController } = require("./cardCreation")
+const { buildDeck, eventListernerController } = require("./cardCreation");
+const { submitReaction } = require("./reactionController");
 
 
-console.log('***********************************************************')
 window.onload = () => {
+
     buildDeck()
-    // eventListernerController()
-    // if (buildDeck()){
-    //     eventListernerController()
-    // }
+    
+    console.log('done')
+    const cardDeck = document.getElementById('cards')
+
+    var observer = new MutationObserver(function (mutationRecords) {
+        console.log("change detected");
+        eventListernerController()
+    });
+    observer.observe(cardDeck, { childList: true })
+    
+
+
 }
-console.log('***********************************************************')
+
 // selectors
 const articleForm = document.querySelector('#userForm');
 
@@ -309,12 +245,61 @@ const articleForm = document.querySelector('#userForm');
 articleForm.addEventListener('submit', (event) => {
     event.preventDefault()
     submitArticle(event);
-    buildDeck()
-    // reBuildDeck()
+    setTimeout(buildDeck(),500)
+    
 })
 
 
 
 
+},{"./cardCreation":1,"./handler":3,"./reactionController":5}],5:[function(require,module,exports){
+const { buildDeck } = require("./cardCreation")
 
-},{"./cardCreation":1,"./handler":2}]},{},[3]);
+function submitReaction() {
+    const reactionForm = document.querySelectorAll(`[id*="reactionForm"]`)
+    for (let i=0; i< reactionForm.length; i++) {
+        reactionForm[i].addEventListener('click', (event) => {
+            // event.preventDefault()
+            valueArray = event.target['value'].split(" ")
+
+            const reactionData = {
+                id: parseInt(valueArray[1]),
+                reactions: valueArray[0]
+            }
+            const options = {
+                method: 'POST',
+                body: JSON.stringify(reactionData),
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            }
+            fetch('http://localhost:3000/updatearticlereaction', options)
+            console.log('test')
+        })
+    }
+}
+
+function reactionsHandler(reactionsArray) {
+    const summary = {};
+    let reactionTemplate = '';
+    for (const [index, reaction] of Object.entries(reactionsArray)) {
+        if (reaction === null) {
+            summary[reaction] = 'No reactions'
+        } else if (summary[reaction]) {
+            summary[reaction] += 1;
+        } else {
+            summary[reaction] = 1
+        }
+    }
+    for (const [key, value] of Object.entries(summary)) {
+
+        const keyClean = `&#x${key.split("+")[1]}`
+        if (value != 'No reactions') {
+            reactionTemplate += `<span>${keyClean}: ${value}</span>`}
+    }
+    return reactionTemplate
+}
+
+module.exports = {submitReaction, reactionsHandler}
+
+},{"./cardCreation":1}]},{},[4]);

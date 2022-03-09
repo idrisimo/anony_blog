@@ -23,7 +23,7 @@ function submitArticle(event) {
         closeModalOnSuccess()
         successAlert('Journal entry submitted', 'success')
     } catch {
-
+        console.log()
     }
 }
 

@@ -1,16 +1,25 @@
 const { submitArticle } = require("./handler");
-const { buildDeck, reBuildDeck, eventListernerController } = require("./cardCreation")
+const { buildDeck, eventListernerController } = require("./cardCreation");
+const { submitReaction } = require("./reactionController");
 
 
-console.log('***********************************************************')
 window.onload = () => {
+
     buildDeck()
-    // eventListernerController()
-    // if (buildDeck()){
-    //     eventListernerController()
-    // }
+    
+    console.log('done')
+    const cardDeck = document.getElementById('cards')
+
+    var observer = new MutationObserver(function (mutationRecords) {
+        console.log("change detected");
+        eventListernerController()
+    });
+    observer.observe(cardDeck, { childList: true })
+    
+
+
 }
-console.log('***********************************************************')
+
 // selectors
 const articleForm = document.querySelector('#userForm');
 
@@ -20,10 +29,9 @@ const articleForm = document.querySelector('#userForm');
 articleForm.addEventListener('submit', (event) => {
     event.preventDefault()
     submitArticle(event);
-    buildDeck()
-    // reBuildDeck()
+    setTimeout(buildDeck(),500)
+    
 })
-
 
 
 
