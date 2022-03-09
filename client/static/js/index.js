@@ -4,10 +4,9 @@ window.onload = () => {
     buildDeck()
 }
 
-
 // selectors
 const articleForm = document.querySelector('#userForm');
-
+const toast = document.querySelector('.liveToast')
 
 // event listeners
 articleForm.addEventListener('submit', (event) => {
@@ -15,6 +14,7 @@ articleForm.addEventListener('submit', (event) => {
     submitArticle(event);
     buildDeck()
 })
+
 
 
 
