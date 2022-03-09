@@ -18,18 +18,16 @@ class Article{
     }
     static create (article) {
       const newArticleId = articlesData.length +1;
-
+      
       const newArticle = new Article({id:newArticleId, ...article});
+      console.log('model ',newArticle)
       articlesData.push(newArticle);
       return  articlesData;
     }
     static updateReactionById (reactionData) {
       const id = reactionData.id - 1;
-
       const reaction = reactionData.reactions
-
       // const articleData = articlesData.filter((article) => article.id === id)
-
       articlesData[id].reactions.push(reaction)
       // console.log(articlesData[id])
       return articlesData;

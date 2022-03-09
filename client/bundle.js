@@ -6,6 +6,7 @@ function buildDeck() {
         .then((response) => response.json())
         .then((data) => {
             const wrapper = document.getElementById('cards')
+            
             for (index in data) {
                 let cardId = parseInt(index)
                 cardId += 1
@@ -180,7 +181,7 @@ function submitArticle(event) {
             reactions: [null],
             giphys: [null]
         };
-
+        console.log('submitarticle', articleData)
         const options = {
             method: 'POST',
             body: JSON.stringify(articleData),
