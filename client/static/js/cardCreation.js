@@ -17,59 +17,76 @@ function buildDeck() {
                 wrapper.insertAdjacentHTML('afterbegin', card)
             }
 
-            // submitReaction()
+
+            submitReaction()
+            showComments()
+
         })
 }
 
 function sendComments(comment){
-    console.log(comment.target.value)
+    commentData = {
+        id: parseInt(comment.target[1].value),
+        comments: comment.target[0].value
+    }
+    console.log(comment)
+    console.log(comment.target[0].value)
+    
+
     const options = {
         method: 'POST',
-        body: JSON.stringify("test"),
+        body: JSON.stringify(commentData),
         headers: {
             "Content-Type": "application/json",
         }
     }
 
-    fetch('http://localhost:8080/comment/', options)
-    .then((response) => response.json())
-    .then()
+    fetch('http://localhost:3000/updatearticlecomment', options)
+    // .then((commentData) => {
+    //     console.log(commentData)
+    // })
+ 
+    
 }
 function addCommentToModal(comment){
     let template = `<p>${comment}<p><br>`
     return template;
 
 }
-function showComments(){
-    let commBoxes = document.querySelectorAll(`[id*="comm"]`)
+function showComments(id){
+    let commBoxes = document.querySelectorAll(`[id^="commnum"]`)
+    commBoxes = Array.from(commBoxes)
     for(let i = 0;i<commBoxes.length;i++){
-        if(id==commBoxes[i]){
 
-        }
+        commBoxes[i].addEventListener('submit', (e) => {
+            e.preventDefault()
+            sendComments(e)            
+        })
+
     }
 
 
-    let commentTemplate = `<p>${data['comments']}</p><br>`
-    let template = `
-    <div class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title">Comments</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <p>${commentTemplate}</p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Save changes</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-        </div>
-    </div>
-    </div>`
+    // let commentTemplate = `<p>${data['comments']}</p><br>`
+    // let template = `
+    // <div class="modal" tabindex="-1" role="dialog">
+    // <div class="modal-dialog" role="document">
+    //     <div class="modal-content">
+    //     <div class="modal-header">
+    //         <h5 class="modal-title">Comments</h5>
+    //         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    //         <span aria-hidden="true">&times;</span>
+    //         </button>
+    //     </div>
+    //     <div class="modal-body">
+    //         <p>${commentTemplate}</p>
+    //     </div>
+    //     <div class="modal-footer">
+    //         <button type="button" class="btn btn-primary">Save changes</button>
+    //         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    //     </div>
+    //     </div>
+    // </div>
+    // </div>`
 }
 function reactionsHandler(reactionsArray) {
     const summary = {};
@@ -93,7 +110,6 @@ function reactionsHandler(reactionsArray) {
 }
 
 
-
 function cardTemplate(data, index) {
 
     const reactionsSummary = reactionsHandler(data['reactions'])
@@ -112,7 +128,7 @@ function cardTemplate(data, index) {
             <div>
                 <a class="comment-icon-format me-3" data-bs-toggle="collapse" href="#commentCollapse${index}" role="button" aria-expanded="false" aria-controls="commentCollapse${index}">
 
-                    <i class="fa-solid fa-comment" id="comm${data['id']}">
+                    <i class="fa-solid fa-comment">
                         <span
                             class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger comment-pill">
                             ${data['comments'].length}
@@ -133,18 +149,18 @@ function cardTemplate(data, index) {
             <div class="collapse" id="commentCollapse${index}">
                 <div class="card card-body">
                     <div>
-                        <form class="text-center">
+                        <form class="text-center" id="commnum${index}">
                             <input type="text" placeholder="Type comment">
-                            <input type="submit" class="btn" value="submit">
+                            <button type="submit" class="btn" value="${index}">Submit</button>
                         </form>
 
                         <div>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
-                                    Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+                                    
                                 </li>
                                 <li class="list-group-item">
-                                    Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+                                    
                                 </li>
                             </ul>
                         </div>
@@ -176,7 +192,7 @@ function submitReaction() {
                     "Content-Type": "application/json",
                 }
             }
-            fetch('http://localhost:3000/update', options)
+            fetch('http://localhost:3000/updatearticlereaction', options)
 
             // buildDeck()
 

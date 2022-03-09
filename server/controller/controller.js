@@ -16,18 +16,18 @@ router.post('/create', (req,res) => {
   res.status(201).send(newArticle)
 })
 
-router.post('/update', (req, res) => {
+router.post('/updatearticlereaction', (req, res) => {
   const data = req.body;
   const articleToUpdate = Article.updateReactionById(data)
   res.status(201).send(articleToUpdate)
 })
 
-router.post('/comment', (req,res) => {
-  let data = req.body
-  let commentID = req.params.id
-  let commentData = Article.updateCommentById(data)
-  console.log("hi")
-  
+
+router.post('/updatearticlecomment', (req,res) => {
+  const data = req.body
+  const commentToUpdate = Article.updateCommentById(data)
+  res.status(201).send(commentToUpdate)
+
 })
 
 // router.get('/comments/', (req,res) => {

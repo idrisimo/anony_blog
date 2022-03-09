@@ -35,9 +35,9 @@ class Article{
     static updateCommentById (commentData) {
       const id = commentData.id;
       const comment = commentData.comment
-      const articleData = articlesData.filter((article) => 
-      article.id === id)
-      articleData[0].comments.push(comment)
+      // const articleData = articlesData.filter((article) => 
+      // article.id === id)
+      articlesData[id].comments.push(comment)
       console.log(comment)
     }
   }
