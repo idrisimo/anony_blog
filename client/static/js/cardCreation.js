@@ -1,5 +1,9 @@
 
-
+let f = document.getElementById("commentForm")
+f.addEventListener('click', (event) => {
+    event.preventDefault();
+    console.log("hi")
+})
 function buildDeck() {
 
     fetch('http://localhost:3000/articles')
@@ -13,9 +17,60 @@ function buildDeck() {
                 wrapper.insertAdjacentHTML('afterbegin', card)
             }
             submitReaction()
+            
         })
 }
 
+function sendComments(comment){
+    console.log(comment.target.value)
+    const options = {
+        method: 'POST',
+        body: JSON.stringify("test"),
+        headers: {
+            "Content-Type": "application/json",
+        }
+    }
+
+    fetch('http://localhost:8080/comment/', options)
+    .then((response) => response.json())
+    .then()
+}
+function addCommentToModal(comment){
+    let template = `<p>${comment}<p><br>`
+    return template;
+
+}
+function showComments(){
+    let commBoxes = document.querySelectorAll(`[id*="comm"]`)
+    for(let i = 0;i<commBoxes.length;i++){
+        if(id==commBoxes[i]){
+            console.log(data[id])
+        }
+    }
+
+
+    let commentTemplate = `<p>${data['comments']}</p><br>`
+    let template = `
+    <div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Comments</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>${commentTemplate}</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+    </div>`
+}
 function reactionsHandler(reactionsArray) {
     const summary = {};
     let reactionTemplate = '';
@@ -88,36 +143,6 @@ function cardTemplate(data) {
     </div>
 </div>`
 return template
-}
-
-function showComments(data,id){
-    let commBoxes = document.querySelectorAll('#comm*')
-    for(let i = 0;i<commBoxes.length;i++){
-        if(id==commBoxes[i]){
-            console.log(data[id])
-        }
-    }
-    let commentTemplate = `<p>${data['comments']}</p><br>`
-    let template = `
-    <div class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title">Comments</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <p>${commentTemplate}</p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Save changes</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-        </div>
-    </div>
-    </div>`
 }
 
 function removeCards(event) {
