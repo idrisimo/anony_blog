@@ -17,8 +17,10 @@ function buildDeck() {
                 wrapper.insertAdjacentHTML('afterbegin', card)
             }
 
+
             submitReaction()
             showComments()
+
         })
 }
 
@@ -55,10 +57,12 @@ function showComments(id){
     let commBoxes = document.querySelectorAll(`[id^="commnum"]`)
     commBoxes = Array.from(commBoxes)
     for(let i = 0;i<commBoxes.length;i++){
+
         commBoxes[i].addEventListener('submit', (e) => {
             e.preventDefault()
             sendComments(e)            
         })
+
     }
 
 
@@ -101,12 +105,10 @@ function reactionsHandler(reactionsArray) {
         const keyClean = `&#x${key.split("+")[1]}`
         if (value != 'No reactions') {
             reactionTemplate += `<span>${keyClean}: ${value}</span>`}
-        // } else {
-        //     reactionTemplate += `<span>${value}</span>`
-        // }
     }
     return reactionTemplate
 }
+
 
 function cardTemplate(data, index) {
 
@@ -172,27 +174,6 @@ function cardTemplate(data, index) {
 }
 
 
-function removeCards(event) {
-    // Skywalker in the jedi temple.
-    event.preventDefault()
-    const wrapper = document.getElementById('cards');
-    let child = wrapper.lastElementChild; 
-    while (child) {
-        wrapper.removeChild(child)
-        child = wrapper.lastElementChild;
-    }
-    console.log(numOfCards.length, data.length)
-    // Skywalker in the jedi temple.
-    // console.log('removing cards')
-    // const wrapper = document.getElementById('cards');
-    // console.log()
-    // let child = wrapper.lastElementChild; 
-    // while (child) {
-    //     wrapper.removeChild(child)
-    //     child = wrapper.lastElementChild;
-    // }
-}
-
 function submitReaction() {
     const reactionForm = document.querySelectorAll(`[id*="reactionForm"]`)
     for (let i=0; i< reactionForm.length; i++) {
@@ -200,7 +181,7 @@ function submitReaction() {
             event.preventDefault()
             valueArray = event.target['value'].split(" ")
 
-            reactionData = {
+            const reactionData = {
                 id: parseInt(valueArray[1]),
                 reactions: valueArray[0]
             }
@@ -213,10 +194,10 @@ function submitReaction() {
             }
             fetch('http://localhost:3000/updatearticlereaction', options)
 
-            buildDeck()
+            // buildDeck()
 
         })
     }
 }
 
-module.exports = { buildDeck, removeCards, submitReaction }
+module.exports = { buildDeck, submitReaction }

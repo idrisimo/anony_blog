@@ -10,7 +10,6 @@ function submitArticle(event) {
             reactions: [null],
             giphys: [null]
         };
-        console.log('submitarticle', articleData)
         const options = {
             method: 'POST',
             body: JSON.stringify(articleData),
@@ -34,6 +33,7 @@ function closeModalOnSuccess() {
 }
 
 function successAlert(message, type) {
+    toaster()
     const alertWrapper = document.createElement('div')
     alertWrapper.setAttribute('class', `alert alert-${type} alert-dismissible`)
     alertWrapper.setAttribute('role', 'alert')
@@ -51,7 +51,16 @@ function successAlert(message, type) {
     submitAlert.append(alertWrapper)
 }
 
+function toaster() {
+    const option = {
+        animation: true,
+        delay: 3000
+    };
 
+    let toastHTMLEl = document.getElementById('liveToast')
+    let toastEl = new bootstrap.Toast(toastHTMLEl, option)
+    toastEl.show()
 
+}
 
 module.exports = { submitArticle }

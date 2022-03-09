@@ -5,6 +5,7 @@ const articles = require('../data.js')
 
 router.get('/articles', (req,res) => {
   const articlesData = Article.all
+  console.log(articlesData)
   res.send(articlesData)
 })
 
@@ -21,10 +22,12 @@ router.post('/updatearticlereaction', (req, res) => {
   res.status(201).send(articleToUpdate)
 })
 
+
 router.post('/updatearticlecomment', (req,res) => {
   const data = req.body
   const commentToUpdate = Article.updateCommentById(data)
   res.status(201).send(commentToUpdate)
+
 })
 
 // router.get('/comments/', (req,res) => {
