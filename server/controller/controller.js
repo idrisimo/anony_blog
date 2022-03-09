@@ -7,8 +7,9 @@ router.get('/articles', (req,res) => {
   res.send(articlesData)
 })
 
-router.post('/', (req,res) => {
+router.post('/create', (req,res) => {
   const data = req.body;
+  console.log('controller', data)
   const newArticle = Article.create(data)
   res.status(201).send(newArticle)
 })

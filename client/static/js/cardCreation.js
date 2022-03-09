@@ -5,6 +5,7 @@ function buildDeck() {
         .then((response) => response.json())
         .then((data) => {
             const wrapper = document.getElementById('cards')
+            
             for (index in data) {
                 let cardId = parseInt(index)
                 cardId += 1
