@@ -52,7 +52,7 @@ function cardTemplate(data, index) {
 
     const reactionsSummary = reactionsHandler(data['reactions'])
     const template = `<div id="cardNum${index}"class="col">
-    <div class="card">
+    <div class="card shadow">
         <div class="card-header">
         <text>Reactions  </text>
             ${reactionsSummary}
@@ -62,8 +62,9 @@ function cardTemplate(data, index) {
             <p class="card-text">${data['description']}</p>
         </div>
         <div class="card-footer">
+        
             <div>
-                <a href="#" class="comment-icon-format me-3">
+                <a class="comment-icon-format me-3" data-bs-toggle="collapse" href="#commentCollapse${index}" role="button" aria-expanded="false" aria-controls="commentCollapse${index}">
 
                     <i class="fa-solid fa-comment" id="comm${data['id']}">
                         <span
@@ -80,8 +81,30 @@ function cardTemplate(data, index) {
                     <button value="U+1F621 ${index}" class="emoji-btn-format">&#x1F621</button>
                     <button value="U+1F600 ${index}" class="emoji-btn-format">&#x1F600</button>
                 </form>
+                
             </div>
             <small class="text-muted text-end">${data['createdAt']}</small>
+            <div class="collapse" id="commentCollapse${index}">
+                <div class="card card-body">
+                    <div>
+                        <form class="text-center">
+                            <input type="text" placeholder="Type comment">
+                            <input type="submit" class="btn" value="submit">
+                        </form>
+
+                        <div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+                                </li>
+                                <li class="list-group-item">
+                                    Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>`
