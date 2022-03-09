@@ -1,93 +1,82 @@
 function buildDeck() {
-    console.log('building deck')
+    console.log('---------------building deck-----------')
     fetch('http://localhost:3000/articles')
         .then((response) => response.json())
         .then((data) => {
+            // Get Card wrapper
             const wrapper = document.getElementById('cards')
-            
+            console.log(data)
+            // Loop for building cards
             for (index in data) {
+                console.log(`building card ${index}`)
                 let cardId = parseInt(index)
                 cardId += 1
-                const card = cardTemplate(data[index], cardId)
-                const cardNum = document.getElementById(`cardNum${cardId}`)
-                if (cardNum) {
-                    cardNum.remove()
-                }
 
+                // Constructs new deck to be place in html
+                const card = cardTemplate(data[index], cardId)
+
+                // Removes old deck on html page
+                // removeStaleDeck(cardId)
+
+                console.log('inserting new card')
+                // Feeds new deck to html page
                 wrapper.insertAdjacentHTML('afterbegin', card)
             }
+            // initialises event controller after cards added to deck
+            console.log('starting event listern initialisation')
+            eventListernerController()
+            console.log('event listeners ready')
+            
+        })
+        return true
+}
 
+function reBuildDeck() {
+    console.log('---------building deck---------')
+    fetch('http://localhost:3000/articles')
+        .then((response) => response.json())
+        .then((data) => {
+            // Get Card wrapper
+            const wrapper = document.getElementById('cards')
+            console.log(data)
+            // Loop for building cards
+            for (index in data) {
+                console.log(`building card ${index}`)
+                let cardId = parseInt(index)
+                cardId += 1
 
-            submitReaction()
-            showComments()
+                // Constructs new deck to be place in html
+                const card = cardTemplate(data[index], cardId)
 
+                // Removes old deck on html page
+                removeStaleDeck(cardId)
+
+                console.log('inserting new card')
+                // Feeds new deck to html page
+                wrapper.insertAdjacentHTML('afterbegin', card)
+            }
+            // initialises event controller after cards added to deck
         })
 }
 
-function sendComments(comment){
-    commentData = {
-        id: parseInt(comment.target[1].value),
-        comments: comment.target[0].value
+
+const removeStaleDeck = (cardId) => {
+    console.log('removing stale card')
+    const cardNum = document.getElementById(`cardNum${cardId}`)
+    if (cardNum) {
+        cardNum.remove()
     }
-    console.log(comment)
-    console.log(comment.target[0].value)
-    
-
-    const options = {
-        method: 'POST',
-        body: JSON.stringify(commentData),
-        headers: {
-            "Content-Type": "application/json",
-        }
-    }
-
-    fetch('http://localhost:3000/updatearticlecomment', options)
-    // .then((commentData) => {
-    //     console.log(commentData)
-    // })
- 
-    
+    console.log('card removed')
 }
-function addCommentToModal(comment){
-    let template = `<p>${comment}<p><br>`
-    return template;
 
+function eventListernerController(){
+    console.log('reactions eventlistener initialised')
+    submitReaction()
+    console.log('comments eventlistener initialised')
+    showComments()
 }
-function showComments(id){
-    let commBoxes = document.querySelectorAll(`[id^="commnum"]`)
-    commBoxes = Array.from(commBoxes)
-    for(let i = 0;i<commBoxes.length;i++){
-
-        commBoxes[i].addEventListener('submit', (e) => {
-            e.preventDefault()
-            sendComments(e)            
-        })
-
-    }
 
 
-    // let commentTemplate = `<p>${data['comments']}</p><br>`
-    // let template = `
-    // <div class="modal" tabindex="-1" role="dialog">
-    // <div class="modal-dialog" role="document">
-    //     <div class="modal-content">
-    //     <div class="modal-header">
-    //         <h5 class="modal-title">Comments</h5>
-    //         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-    //         <span aria-hidden="true">&times;</span>
-    //         </button>
-    //     </div>
-    //     <div class="modal-body">
-    //         <p>${commentTemplate}</p>
-    //     </div>
-    //     <div class="modal-footer">
-    //         <button type="button" class="btn btn-primary">Save changes</button>
-    //         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-    //     </div>
-    //     </div>
-    // </div>
-    // </div>`
-}
 function reactionsHandler(reactionsArray) {
     const summary = {};
     let reactionTemplate = '';
@@ -111,7 +100,15 @@ function reactionsHandler(reactionsArray) {
 
 
 function cardTemplate(data, index) {
-
+    console.log('adding data to card template')
+    function commentLoop() {
+        let commentList = ''
+        for (i in data.comments){
+            const newComment = `<li class="list-group-item">${data.comments[i]}</li>`
+            commentList += newComment
+        }
+        return commentList
+    }
     const reactionsSummary = reactionsHandler(data['reactions'])
     const template = `<div id="cardNum${index}"class="col">
     <div class="card shadow">
@@ -156,12 +153,7 @@ function cardTemplate(data, index) {
 
                         <div>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
-                                    
-                                </li>
-                                <li class="list-group-item">
-                                    
-                                </li>
+                                ${commentLoop()}
                             </ul>
                         </div>
                     </div>
@@ -173,6 +165,40 @@ function cardTemplate(data, index) {
     return template
 }
 
+function sendComments(comment){
+    commentData = {
+        id: parseInt(comment.target[1].value),
+        comments: comment.target[0].value
+    }
+    console.log(commentData)
+    
+
+    const options = {
+        method: 'POST',
+        body: JSON.stringify(commentData),
+        headers: {
+            "Content-Type": "application/json",
+        }
+    }
+
+    fetch('http://localhost:3000/updatearticlecomment', options)
+
+    // buildDeck()
+    reBuildDeck()
+}
+
+function showComments(id){
+    let commBoxes = document.querySelectorAll(`[id^="commnum"]`)
+    commBoxes = Array.from(commBoxes)
+    for(let i = 0;i<commBoxes.length;i++){
+
+        commBoxes[i].addEventListener('submit', (e) => {
+            e.preventDefault()
+            sendComments(e)            
+        })
+
+    }
+}
 
 function submitReaction() {
     const reactionForm = document.querySelectorAll(`[id*="reactionForm"]`)
@@ -195,9 +221,10 @@ function submitReaction() {
             fetch('http://localhost:3000/updatearticlereaction', options)
 
             // buildDeck()
+            reBuildDeck()
 
         })
     }
 }
 
-module.exports = { buildDeck, submitReaction }
+module.exports = { buildDeck, submitReaction, reBuildDeck, eventListernerController }

@@ -5,7 +5,6 @@ const articles = require('../data.js')
 
 router.get('/articles', (req,res) => {
   const articlesData = Article.all
-  console.log(articlesData)
   res.send(articlesData)
 })
 

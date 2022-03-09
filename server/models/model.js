@@ -13,14 +13,13 @@ class Article{
     }
     static get all(){
       const articles = articlesData.map((article) => new Article(article));
-      console.log('all ', articles[3].comments)
+      console.log('all ', articles[articles.length-1])
       return articles
     }
     static create (article) {
       const newArticleId = articlesData.length +1;
       
       const newArticle = new Article({id:newArticleId, ...article});
-      console.log('model ',newArticle)
       articlesData.push(newArticle);
       return  articlesData;
     }
@@ -33,12 +32,12 @@ class Article{
       return articlesData;
     }
     static updateCommentById (commentData) {
-      const id = commentData.id;
-      const comment = commentData.comment
+      const id = commentData.id -= 1;
+      const comment = commentData.comments
       // const articleData = articlesData.filter((article) => 
       // article.id === id)
       articlesData[id].comments.push(comment)
-      console.log(comment)
+
     }
   }
   module.exports = Article

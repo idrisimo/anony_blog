@@ -1,73 +1,83 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 function buildDeck() {
-    console.log('building deck')
+    console.log('---------------building deck-----------')
     fetch('http://localhost:3000/articles')
         .then((response) => response.json())
         .then((data) => {
+            // Get Card wrapper
             const wrapper = document.getElementById('cards')
-            
+            console.log(data)
+            // Loop for building cards
             for (index in data) {
+                console.log(`building card ${index}`)
                 let cardId = parseInt(index)
                 cardId += 1
-                const card = cardTemplate(data[index], cardId)
-                const cardNum = document.getElementById(`cardNum${cardId}`)
-                if (cardNum) {
-                    cardNum.remove()
-                }
 
+                // Constructs new deck to be place in html
+                const card = cardTemplate(data[index], cardId)
+
+                // Removes old deck on html page
+                // removeStaleDeck(cardId)
+
+                console.log('inserting new card')
+                // Feeds new deck to html page
                 wrapper.insertAdjacentHTML('afterbegin', card)
             }
-
-            submitReaction()
-            showComments()
-
-}
-
-function sendComments(comment){
-
-    commentData = {
-        id: parseInt(comment.target[1].value),
-        comments: comment.target[0].value
-    }
-    console.log(comment)
-    console.log(comment.target[0].value)
-    
-
-    const options = {
-        method: 'POST',
-        body: JSON.stringify(commentData),
-
-        headers: {
-            "Content-Type": "application/json",
-        }
-    }
-
-
-    fetch('http://localhost:3000/updatearticlecomment', options)
-    // .then((commentData) => {
-    //     console.log(commentData)
-    // })
- 
-    
-
-}
-function addCommentToModal(comment){
-    let template = `<p>${comment}<p><br>`
-    return template;
-
-}
-
-function showComments(id){
-    let commBoxes = document.querySelectorAll(`[id^="commnum"]`)
-    commBoxes = Array.from(commBoxes)
-    for(let i = 0;i<commBoxes.length;i++){
-        commBoxes[i].addEventListener('submit', (e) => {
-            e.preventDefault()
-            sendComments(e)            
+            // initialises event controller after cards added to deck
+            console.log('starting event listern initialisation')
+            eventListernerController()
+            console.log('event listeners ready')
+            
         })
-    }
-
+        return true
 }
+
+function reBuildDeck() {
+    console.log('---------building deck---------')
+    fetch('http://localhost:3000/articles')
+        .then((response) => response.json())
+        .then((data) => {
+            // Get Card wrapper
+            const wrapper = document.getElementById('cards')
+            console.log(data)
+            // Loop for building cards
+            for (index in data) {
+                console.log(`building card ${index}`)
+                let cardId = parseInt(index)
+                cardId += 1
+
+                // Constructs new deck to be place in html
+                const card = cardTemplate(data[index], cardId)
+
+                // Removes old deck on html page
+                removeStaleDeck(cardId)
+
+                console.log('inserting new card')
+                // Feeds new deck to html page
+                wrapper.insertAdjacentHTML('afterbegin', card)
+            }
+            // initialises event controller after cards added to deck
+        })
+}
+
+
+const removeStaleDeck = (cardId) => {
+    console.log('removing stale card')
+    const cardNum = document.getElementById(`cardNum${cardId}`)
+    if (cardNum) {
+        cardNum.remove()
+    }
+    console.log('card removed')
+}
+
+function eventListernerController(){
+    console.log('reactions eventlistener initialised')
+    submitReaction()
+    console.log('comments eventlistener initialised')
+    showComments()
+}
+
+
 function reactionsHandler(reactionsArray) {
     const summary = {};
     let reactionTemplate = '';
@@ -91,7 +101,15 @@ function reactionsHandler(reactionsArray) {
 
 
 function cardTemplate(data, index) {
-
+    console.log('adding data to card template')
+    function commentLoop() {
+        let commentList = ''
+        for (i in data.comments){
+            const newComment = `<li class="list-group-item">${data.comments[i]}</li>`
+            commentList += newComment
+        }
+        return commentList
+    }
     const reactionsSummary = reactionsHandler(data['reactions'])
     const template = `<div id="cardNum${index}"class="col">
     <div class="card shadow">
@@ -136,12 +154,7 @@ function cardTemplate(data, index) {
 
                         <div>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
-                                    
-                                </li>
-                                <li class="list-group-item">
-                                    
-                                </li>
+                                ${commentLoop()}
                             </ul>
                         </div>
                     </div>
@@ -153,7 +166,40 @@ function cardTemplate(data, index) {
     return template
 }
 
+function sendComments(comment){
+    commentData = {
+        id: parseInt(comment.target[1].value),
+        comments: comment.target[0].value
+    }
+    console.log(commentData)
+    
 
+    const options = {
+        method: 'POST',
+        body: JSON.stringify(commentData),
+        headers: {
+            "Content-Type": "application/json",
+        }
+    }
+
+    fetch('http://localhost:3000/updatearticlecomment', options)
+
+    // buildDeck()
+    reBuildDeck()
+}
+
+function showComments(id){
+    let commBoxes = document.querySelectorAll(`[id^="commnum"]`)
+    commBoxes = Array.from(commBoxes)
+    for(let i = 0;i<commBoxes.length;i++){
+
+        commBoxes[i].addEventListener('submit', (e) => {
+            e.preventDefault()
+            sendComments(e)            
+        })
+
+    }
+}
 
 function submitReaction() {
     const reactionForm = document.querySelectorAll(`[id*="reactionForm"]`)
@@ -176,12 +222,13 @@ function submitReaction() {
             fetch('http://localhost:3000/updatearticlereaction', options)
 
             // buildDeck()
+            reBuildDeck()
 
         })
     }
 }
 
-module.exports = { buildDeck, submitReaction }
+module.exports = { buildDeck, submitReaction, reBuildDeck, eventListernerController }
 
 },{}],2:[function(require,module,exports){
 
@@ -204,6 +251,7 @@ function submitArticle(event) {
             }
         }
         // TODO this fetch will most likely need to change before production
+        // event.preventDefault()
         fetch('http://localhost:3000/create', options)
         closeModalOnSuccess()
         successAlert('Journal entry submitted', 'success')
@@ -219,7 +267,6 @@ function closeModalOnSuccess() {
 }
 
 function successAlert(message, type) {
-    toaster()
     const alertWrapper = document.createElement('div')
     alertWrapper.setAttribute('class', `alert alert-${type} alert-dismissible`)
     alertWrapper.setAttribute('role', 'alert')
@@ -237,28 +284,22 @@ function successAlert(message, type) {
     submitAlert.append(alertWrapper)
 }
 
-function toaster() {
-    const option = {
-        animation: true,
-        delay: 3000
-    };
-
-    let toastHTMLEl = document.getElementById('liveToast')
-    let toastEl = new bootstrap.Toast(toastHTMLEl, option)
-    toastEl.show()
-
-}
-
 module.exports = { submitArticle }
 
 },{}],3:[function(require,module,exports){
 const { submitArticle } = require("./handler");
-const { buildDeck, submitReaction } = require("./cardCreation")
+const { buildDeck, reBuildDeck, eventListernerController } = require("./cardCreation")
 
+
+console.log('***********************************************************')
 window.onload = () => {
     buildDeck()
+    // eventListernerController()
+    // if (buildDeck()){
+    //     eventListernerController()
+    // }
 }
-
+console.log('***********************************************************')
 // selectors
 const articleForm = document.querySelector('#userForm');
 
@@ -269,7 +310,9 @@ articleForm.addEventListener('submit', (event) => {
     event.preventDefault()
     submitArticle(event);
     buildDeck()
+    // reBuildDeck()
 })
+
 
 
 
