@@ -1,5 +1,4 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-
 function buildDeck() {
     console.log('building deck')
     fetch('http://localhost:3000/articles')
@@ -20,10 +19,72 @@ function buildDeck() {
             }
 
             submitReaction()
-
+            showComments()
         })
 }
 
+function sendComments(comment){
+    commentData = {
+        id: parseInt(comment.target[1].value),
+        comments: comment.target[0].value
+    }
+    console.log(comment)
+    console.log(comment.target[0].value)
+    
+
+    const options = {
+        method: 'POST',
+        body: JSON.stringify(commentData),
+        headers: {
+            "Content-Type": "application/json",
+        }
+    }
+
+    fetch('http://localhost:3000/updatearticlecomment', options)
+    // .then((commentData) => {
+    //     console.log(commentData)
+    // })
+ 
+    
+}
+function addCommentToModal(comment){
+    let template = `<p>${comment}<p><br>`
+    return template;
+
+}
+function showComments(id){
+    let commBoxes = document.querySelectorAll(`[id^="commnum"]`)
+    commBoxes = Array.from(commBoxes)
+    for(let i = 0;i<commBoxes.length;i++){
+        commBoxes[i].addEventListener('submit', (e) => {
+            e.preventDefault()
+            sendComments(e)            
+        })
+    }
+
+
+    // let commentTemplate = `<p>${data['comments']}</p><br>`
+    // let template = `
+    // <div class="modal" tabindex="-1" role="dialog">
+    // <div class="modal-dialog" role="document">
+    //     <div class="modal-content">
+    //     <div class="modal-header">
+    //         <h5 class="modal-title">Comments</h5>
+    //         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    //         <span aria-hidden="true">&times;</span>
+    //         </button>
+    //     </div>
+    //     <div class="modal-body">
+    //         <p>${commentTemplate}</p>
+    //     </div>
+    //     <div class="modal-footer">
+    //         <button type="button" class="btn btn-primary">Save changes</button>
+    //         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    //     </div>
+    //     </div>
+    // </div>
+    // </div>`
+}
 function reactionsHandler(reactionsArray) {
     const summary = {};
     let reactionTemplate = '';
@@ -48,13 +109,6 @@ function reactionsHandler(reactionsArray) {
     return reactionTemplate
 }
 
-let f = document.getElementById("commentForm")
-f.addEventListener('submit', (event) => {
-    event.preventDefault();
-    console.log('click')
-})
-
-
 function cardTemplate(data, index) {
 
     const reactionsSummary = reactionsHandler(data['reactions'])
@@ -73,7 +127,7 @@ function cardTemplate(data, index) {
             <div>
                 <a class="comment-icon-format me-3" data-bs-toggle="collapse" href="#commentCollapse${index}" role="button" aria-expanded="false" aria-controls="commentCollapse${index}">
 
-                    <i class="fa-solid fa-comment" id="comm${data['id']}">
+                    <i class="fa-solid fa-comment">
                         <span
                             class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger comment-pill">
                             ${data['comments'].length}
@@ -94,18 +148,18 @@ function cardTemplate(data, index) {
             <div class="collapse" id="commentCollapse${index}">
                 <div class="card card-body">
                     <div>
-                        <form class="text-center">
+                        <form class="text-center" id="commnum${index}">
                             <input type="text" placeholder="Type comment">
-                            <input type="submit" class="btn" value="submit">
+                            <button type="submit" class="btn" value="${index}">Submit</button>
                         </form>
 
                         <div>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
-                                    Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+                                    
                                 </li>
                                 <li class="list-group-item">
-                                    Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+                                    
                                 </li>
                             </ul>
                         </div>
@@ -118,44 +172,15 @@ function cardTemplate(data, index) {
     return template
 }
 
-function showComments(data, id) {
-    let commBoxes = document.querySelectorAll('#comm*')
-    for (let i = 0; i < commBoxes.length; i++) {
-        if (id == commBoxes[i]) {
-            // console.log(data[id])
-        }
-    }
-    let commentTemplate = `<p>${data['comments']}</p><br>`
-    let template = `
-    <div class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title">Comments</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <p>${commentTemplate}</p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Save changes</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-        </div>
-    </div>
-    </div>`
-}
 
-function removeCards(data) {
-
-    const numOfCards = document.querySelectorAll(`[id*="cardNum"]`)
-    console.log(numOfCards.length, data.length)
-    if (numOfCards.length > data.length) {
-        for (let i = data.length; i < numOfCards.length; i++) {
-            console.log(document.getElementById(`cardNum${i}`))
-        }
+function removeCards(event) {
+    // Skywalker in the jedi temple.
+    event.preventDefault()
+    const wrapper = document.getElementById('cards');
+    let child = wrapper.lastElementChild; 
+    while (child) {
+        wrapper.removeChild(child)
+        child = wrapper.lastElementChild;
     }
     console.log(numOfCards.length, data.length)
     // Skywalker in the jedi temple.
@@ -187,7 +212,7 @@ function submitReaction() {
                     "Content-Type": "application/json",
                 }
             }
-            fetch('http://localhost:3000/update', options)
+            fetch('http://localhost:3000/updatearticlereaction', options)
 
             buildDeck()
 

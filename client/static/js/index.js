@@ -16,11 +16,6 @@ articleForm.addEventListener('submit', (event) => {
     buildDeck()
 })
 
-let f = document.getElementById("commentForm")
-f.addEventListener('click', (event) => {
-    event.preventDefault();
-    console.log("hi")
-})
 
 
 // reactionForm.addEventListener('click', () => {console.log('cliclclc')})
