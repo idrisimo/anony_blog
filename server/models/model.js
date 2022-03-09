@@ -32,5 +32,13 @@ class Article{
       // console.log(articlesData[id])
       return articlesData;
     }
+    static updateCommentById (commentData) {
+      const id = commentData.id;
+      const comment = commentData.comment
+      const articleData = articlesData.filter((article) => 
+      article.id === id)
+      articleData[0].comments.push(comment)
+      console.log(comment)
+    }
   }
   module.exports = Article
