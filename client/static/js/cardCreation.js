@@ -17,7 +17,7 @@ function buildDeck() {
                 wrapper.insertAdjacentHTML('afterbegin', card)
             }
 
-            submitReaction()
+            // submitReaction()
         })
 }
 
@@ -44,7 +44,7 @@ function showComments(){
     let commBoxes = document.querySelectorAll(`[id*="comm"]`)
     for(let i = 0;i<commBoxes.length;i++){
         if(id==commBoxes[i]){
-            console.log(data[id])
+
         }
     }
 
@@ -88,9 +88,6 @@ function reactionsHandler(reactionsArray) {
         const keyClean = `&#x${key.split("+")[1]}`
         if (value != 'No reactions') {
             reactionTemplate += `<span>${keyClean}: ${value}</span>`}
-        // } else {
-        //     reactionTemplate += `<span>${value}</span>`
-        // }
     }
     return reactionTemplate
 }
@@ -161,27 +158,6 @@ function cardTemplate(data, index) {
 }
 
 
-function removeCards(event) {
-    // Skywalker in the jedi temple.
-    event.preventDefault()
-    const wrapper = document.getElementById('cards');
-    let child = wrapper.lastElementChild; 
-    while (child) {
-        wrapper.removeChild(child)
-        child = wrapper.lastElementChild;
-    }
-    console.log(numOfCards.length, data.length)
-    // Skywalker in the jedi temple.
-    // console.log('removing cards')
-    // const wrapper = document.getElementById('cards');
-    // console.log()
-    // let child = wrapper.lastElementChild; 
-    // while (child) {
-    //     wrapper.removeChild(child)
-    //     child = wrapper.lastElementChild;
-    // }
-}
-
 function submitReaction() {
     const reactionForm = document.querySelectorAll(`[id*="reactionForm"]`)
     for (let i=0; i< reactionForm.length; i++) {
@@ -202,10 +178,10 @@ function submitReaction() {
             }
             fetch('http://localhost:3000/update', options)
 
-            buildDeck()
+            // buildDeck()
 
         })
     }
 }
 
-module.exports = { buildDeck, removeCards, submitReaction }
+module.exports = { buildDeck, submitReaction }

@@ -22,7 +22,7 @@ router.post('/update', (req, res) => {
   res.status(201).send(articleToUpdate)
 })
 
-router.post('/comment/', (req,res) => {
+router.post('/comment', (req,res) => {
   let data = req.body
   let commentID = req.params.id
   let commentData = Article.updateCommentById(data)

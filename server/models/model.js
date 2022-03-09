@@ -13,7 +13,7 @@ class Article{
     }
     static get all(){
       const articles = articlesData.map((article) => new Article(article));
-      console.log(articles[3])
+      console.log('all ', articles[3].comments)
       return articles
     }
     static create (article) {
