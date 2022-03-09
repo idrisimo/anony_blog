@@ -4,10 +4,9 @@ window.onload = () => {
     buildDeck()
 }
 
-
 // selectors
 const articleForm = document.querySelector('#userForm');
-
+const toast = document.querySelector('.liveToast')
 
 // event listeners
 articleForm.addEventListener('submit', (event) => {
@@ -16,11 +15,7 @@ articleForm.addEventListener('submit', (event) => {
     buildDeck()
 })
 
-let f = document.getElementById("commentForm")
-f.addEventListener('click', (event) => {
-    event.preventDefault();
-    console.log("hi")
-})
+
 
 
 // reactionForm.addEventListener('click', () => {console.log('cliclclc')})

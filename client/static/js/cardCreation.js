@@ -1,11 +1,3 @@
-
-
-let f = document.getElementById("commentForm")
-f.addEventListener('click', (event) => {
-    event.preventDefault();
-    console.log("hi")
-})
-
 function buildDeck() {
     console.log('building deck')
     fetch('http://localhost:3000/articles')
@@ -103,11 +95,6 @@ function reactionsHandler(reactionsArray) {
     return reactionTemplate
 }
 
-let f = document.getElementById("commentForm")
-f.addEventListener('submit', (event) => {
-    event.preventDefault();
-    console.log('click')
-})
 
 
 function cardTemplate(data, index) {
@@ -202,7 +189,7 @@ function submitReaction() {
             event.preventDefault()
             valueArray = event.target['value'].split(" ")
 
-            reactionData = {
+            const reactionData = {
                 id: parseInt(valueArray[1]),
                 reactions: valueArray[0]
             }
