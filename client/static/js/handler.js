@@ -1,14 +1,16 @@
 
 function submitArticle(event) {
-    event.preventDefault()
     console.log('form submitted')
     try {
         const articleData = {
             title: event.target['articleTitle'].value,
             description: event.target['articleText'].value,
-            createdAt: new Date()
+            createdAt: new Date(),
+            comments: [null],
+            reactions: [null],
+            giphys: [null]
         };
-        console.log(articleData)
+        console.log('submitarticle', articleData)
         const options = {
             method: 'POST',
             body: JSON.stringify(articleData),
@@ -47,7 +49,9 @@ function successAlert(message, type) {
     alertWrapper.append(btn)
     const submitAlert = document.getElementById('submitAlert')
     submitAlert.append(alertWrapper)
- 
 }
+
+
+
 
 module.exports = { submitArticle }
