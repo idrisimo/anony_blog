@@ -30,6 +30,10 @@
         <!--Add logo-->
     </header>
     <main>
+        <form id="commentForm">
+            <textarea name="" id="" cols="30" rows="10"></textarea>
+            <input type="submit" value="Submit">
+        </form>
         <div id="submitAlert"></div>
         <div class="hero text-center">
 
@@ -38,7 +42,7 @@
                 data-bs-target="#articleModal">Start</button>
         </div>
 
-        <section id="articles"class="container mt-5">
+        <section id="articles" class="container mt-5">
             <div id="cards" class="row row-cols-1 row-cols-md-2 g-4">
 
             </div>
@@ -61,10 +65,29 @@
                         </div>
                         <div class="modal-footer">
                             <input type="text" id="giphyinput">
-                            <button type="button" class="btn btn-warning" id="giphybut" button type="button">GIPHY</button>
+                            <button type="button" class="btn btn-warning" id="giphybut" button
+                                type="button">GIPHY</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <input id="submitArticle" type="submit" class="btn btn-primary" form="userForm" value="Submit">
+                            <input id="submitArticle" type="submit" class="btn btn-primary" form="userForm"
+                                value="Submit">
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button>
+
+            <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                        <img src="..." class="rounded me-2" alt="...">
+                        <strong class="me-auto">Bootstrap</strong>
+                        <small>11 mins ago</small>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">
+                        Hello, world! This is a toast message.
                     </div>
                 </div>
             </div>

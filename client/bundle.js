@@ -48,6 +48,12 @@ function reactionsHandler(reactionsArray) {
     return reactionTemplate
 }
 
+let f = document.getElementById("commentForm")
+f.addEventListener('submit', (event) => {
+    event.preventDefault();
+    console.log('click')
+})
+
 
 function cardTemplate(data, index) {
 
@@ -70,7 +76,7 @@ function cardTemplate(data, index) {
                     <i class="fa-solid fa-comment" id="comm${data['id']}">
                         <span
                             class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger comment-pill">
-                            99+
+                            ${data['comments'].length}
                             <span class="visually-hidden">Comments</span>
                     </i>
                 </a>
