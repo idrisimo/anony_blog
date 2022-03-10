@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "dev": "concurrently \"watchify ./index.js -o bundle.js\" \"py -m http.server\"",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "coverage": "jest --coverage"
   },
   "keywords": [],
   "author": "",
