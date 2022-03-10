@@ -1,3 +1,4 @@
+const { buildDeck } = require("./cardCreation");
 
 function submitArticle(event) {
     event.preventDefault()
@@ -6,10 +7,12 @@ function submitArticle(event) {
         const articleData = {
             title: event.target['articleTitle'].value,
             description: event.target['articleText'].value,
-            createdAt: new Date(),
+            createdAt: new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}),
             comments: [null],
-            reactions: [null]
+            reactions: [null],
+            giphys: [null]
         };
+        console.log('submitarticle', articleData)
         const options = {
             method: 'POST',
             body: JSON.stringify(articleData),
@@ -18,11 +21,12 @@ function submitArticle(event) {
             }
         }
         // TODO this fetch will most likely need to change before production
-        fetch('http://localhost:3000/create', options)
+        
+        fetch('http://localhost:3000/create', options).then(()=>buildDeck())
         closeModalOnSuccess()
         successAlert('Journal entry submitted', 'success')
     } catch {
-
+        console.log()
     }
 }
 
@@ -49,8 +53,5 @@ function successAlert(message, type) {
     const submitAlert = document.getElementById('submitAlert')
     submitAlert.append(alertWrapper)
 }
-
-
-
 
 module.exports = { submitArticle }
