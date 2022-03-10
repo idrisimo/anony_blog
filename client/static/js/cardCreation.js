@@ -1,10 +1,16 @@
+function getAllArticles() {
+    return fetch('http://localhost:3000/articles').then((response) => response.json()).catch(console.warn)
+    
+}
+
 
 function buildDeck() {
     console.log('building deck')
-    fetch('http://localhost:3000/articles')
-        .then((response) => response.json())
-        .then((data) => {
-            // Get Card wrapper
+    // fetch('http://localhost:3000/articles')
+    //     .then((response) => response.json())
+    const response = getAllArticles()
+        response.then((data) => {
+           try { // Get Card wrapper
             const wrapper = document.getElementById('cards')
 
             // Loop for building cards
@@ -23,10 +29,13 @@ function buildDeck() {
                 wrapper.insertAdjacentHTML('afterbegin', card)
 
             }
+            return true
+        } catch {
+            return false
+        }
             // initialises event controller after cards added to deck
             //  eventListernerController()
         })
-
 }
 
 const removeStaleDeck = (cardId) => {
@@ -43,7 +52,7 @@ function sendComments(comment) {
         id: parseInt(comment.target[1].value),
         comments: comment.target[0].value
     }
-    console.log(commentData)
+    console.log(comment)
 
     const options = {
         method: 'POST',
@@ -69,18 +78,13 @@ function showComments() {
     }
 }
 
-function submitReaction() {
-    const reactionForm = document.querySelectorAll(`[id*="reactionForm"]`)
-
-    for (let i = 0; i < reactionForm.length; i++) {
-        reactionForm[i].addEventListener('click', (event) => {
-            // event.preventDefault()
-            valueArray = event.target['value'].split(" ")
-
-            const reactionData = {
-                id: parseInt(valueArray[1]),
-                reactions: valueArray[0]
-            }
+function constructReactionData(event) {
+    let valueArray = event.target['value'].split(" ")
+    const reactionData = {
+        id: parseInt(valueArray[1]),
+        reactions: valueArray[0]
+    }
+    console.log(reactionData)
             const options = {
                 method: 'POST',
                 body: JSON.stringify(reactionData),
@@ -88,10 +92,15 @@ function submitReaction() {
                     "Content-Type": "application/json",
                 }
             }
-            const responsePromise = fetch('http://localhost:3000/updatearticlereaction', options).then(() => buildDeck())
+            fetch('http://localhost:3000/updatearticlereaction', options).then(() => buildDeck())
+}
 
-            console.log('test')
-            return responsePromise
+function submitReaction(){
+    const reactionForm = document.querySelectorAll(`[id*="reactionForm"]`)
+
+    for (let i = 0; i < reactionForm.length; i++) {
+        reactionForm[i].addEventListener('click', (event) => {
+            constructReactionData(event)
         })
     }
 }
@@ -187,6 +196,7 @@ function cardTemplate(data, index) {
 </div>`
     return template
 }
-console.log(typeof buildDeck())
 
-module.exports = { buildDeck, submitReaction, showComments }
+
+module.exports = { buildDeck, submitReaction, showComments, getAllArticles, removeStaleDeck, sendComments, constructReactionData }
+
