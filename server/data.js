@@ -6,7 +6,7 @@
 // ]
 
 const articles =  [
-        { id:1, title: "article 1", createdAt:"", description:"Very good article 1",comments: ["Good post", "I like this post"],reactions: ["U+1F600", "U+1F600"], giphy: [null]}
+        { id:1, title: "article 1", createdAt:"", description:"Very good article 1",comments: ["Good post", "I like this post"],reactions: ["U+1F600", "U+1F600"], giphys: [null]}
     ]
 
 module.exports = articles
