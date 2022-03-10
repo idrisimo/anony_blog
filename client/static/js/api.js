@@ -1,3 +1,4 @@
+let but = document.getElementById('giphybut')
 but.addEventListener('click', () => {
     sendApiRequest();
 })
