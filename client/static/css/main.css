@@ -18,7 +18,7 @@ body{
   background-color: rgb(243, 226, 226);
 }
 .hero {
-  background-image: linear-gradient(to bottom, black, rgba(0, 0, 0, 0)),url("https://k48b9e9840-flywheel.netdna-ssl.com/wp-content/uploads/2021/07/alfons-morales-YLSwjSy7stw-unsplash.jpg");
+    background-image: linear-gradient(to bottom, black, rgba(255, 255, 255, 0.171)),url("https://k48b9e9840-flywheel.netdna-ssl.com/wp-content/uploads/2021/07/alfons-morales-YLSwjSy7stw-unsplash.jpg");
 	background-size: cover;
   display: flex;
   justify-content: center;
