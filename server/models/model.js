@@ -1,3 +1,4 @@
+const articles = require("../data")
 const articlesData = require("../data")
 
 
@@ -12,8 +13,10 @@ class Article{
       this.giphys = data.giphy
     }
     static get all(){
+      console.log('data.js ', articlesData)
       const articles = articlesData.map((article) => new Article(article));
-      console.log('all ', articles[articles.length-1])
+      console.log('articlesData ', articlesData)
+      console.log('models ', articles)
       return articles
     }
     static create (article) {
@@ -26,16 +29,15 @@ class Article{
     static updateReactionById (reactionData) {
       const id = reactionData.id - 1;
       const reaction = reactionData.reactions
-      // const articleData = articlesData.filter((article) => article.id === id)
+  
       articlesData[id].reactions.push(reaction)
-      // console.log(articlesData[id])
+      console.log(articlesData[id])
       return articlesData;
     }
     static updateCommentById (commentData) {
       const id = commentData.id -= 1;
       const comment = commentData.comments
-      // const articleData = articlesData.filter((article) => 
-      // article.id === id)
+
       articlesData[id].comments.push(comment)
 
     }

@@ -1,25 +1,37 @@
 const { submitArticle } = require("./handler");
-const {buildDeck, removeCards, submitReaction} = require("./cardCreation")
+const { buildDeck, submitReaction, showComments } = require("./cardCreation");
+
+
+
 window.onload = () => {
+
     buildDeck()
-    // eventListernerController()
-    // if (buildDeck()){
-    //     eventListernerController()
-    // }
+
+    console.log('done')
+    const cardDeck = document.getElementById('cards')
+
+     var observer = new MutationObserver(function (mutationRecords) {
+        console.log("change detected");
+        const reactionForm = document.querySelectorAll(`[id*="reactionForm"]`)
+        submitReaction()
+        showComments()
+    });
+    observer.observe(cardDeck, { childList: true })
+
+
+
 }
-console.log('***********************************************************')
+
 // selectors
 const articleForm = document.querySelector('#userForm');
-const toast = document.querySelector('.liveToast')
 
 // event listeners
 articleForm.addEventListener('submit', (event) => {
     event.preventDefault()
     submitArticle(event);
-    buildDeck()
-    // reBuildDeck()
-})
 
+
+})
 
 
 
