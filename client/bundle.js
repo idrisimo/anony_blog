@@ -205,7 +205,7 @@ function submitArticle(event) {
             createdAt: new Date(),
             comments: [null],
             reactions: [null],
-            giphys: [null]
+            giphys: event.target['articleGiphy'].value
         };
         console.log('submitarticle', articleData)
         const options = {

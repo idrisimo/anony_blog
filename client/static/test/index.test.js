@@ -39,7 +39,7 @@ describe('index.html', () => {
 
         describe('form', () => {
             let form;
-            let articleTitle, articleText, submitBtn;
+            let articleTitle, articleText, submitBtn, articleGiphy;
             beforeEach(() => {
                 form = document.querySelector('form')
                 articleTitle = form.querySelector('#articleTitle');

@@ -10,7 +10,7 @@ class Article{
       this.description = data.description
       this.comments = data.comments
       this.reactions = data.reactions
-      this.giphys = data.giphy
+      this.giphys = data.giphys
     }
     static get all(){
       console.log('data.js ', articlesData)
@@ -39,7 +39,6 @@ class Article{
       const comment = commentData.comments
 
       articlesData[id].comments.push(comment)
-
     }
   }
   module.exports = Article
