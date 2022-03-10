@@ -3,7 +3,6 @@ function getAllArticles() {
     
 }
 
-
 function buildDeck() {
     console.log('building deck')
     // fetch('http://localhost:3000/articles')

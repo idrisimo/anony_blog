@@ -12,12 +12,11 @@ function sendApiRequest(){
         return data.json()
     }).then((json) => {
         const randomNum = Math.floor(Math.random() * 50)
-        console.log(randomNum)
-        console.log(json.data[randomNum].images.fixed_height.url)
         let imgPath = json.data[randomNum].images.fixed_height.url
-
         let img = `<img src="${imgPath}">`
         //img.setAttribute("src", imgPath)
         document.getElementById("userForm").insertAdjacentHTML('beforeend',img)
     })
 }
+
+module.exports = sendApiRequest;

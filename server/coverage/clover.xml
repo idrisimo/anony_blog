@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1646925262503" clover="3.2.0">
-  <project timestamp="1646925262503" name="All files">
+<coverage generated="1646934751314" clover="3.2.0">
+  <project timestamp="1646934751314" name="All files">
     <metrics statements="61" coveredstatements="40" conditionals="0" coveredconditionals="0" methods="11" coveredmethods="5" elements="72" coveredelements="45" complexity="0" loc="61" ncloc="61" packages="3" files="4" classes="4"/>
     <package name="server">
       <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-      <file name="data.js" path="E:\Documents - data drive\futureproof\ProjectWeek\week_1\anony_blog\server\data.js">
+      <file name="data.js" path="C:\Users\user\anonyblog\anony_blog\server\data.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="8" count="2" type="stmt"/>
-        <line num="12" count="2" type="stmt"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
       </file>
-      <file name="server.js" path="E:\Documents - data drive\futureproof\ProjectWeek\week_1\anony_blog\server\server.js">
+      <file name="server.js" path="C:\Users\user\anonyblog\anony_blog\server\server.js">
         <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -25,7 +25,7 @@
     </package>
     <package name="server.controller">
       <metrics statements="22" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="1"/>
-      <file name="controller.js" path="E:\Documents - data drive\futureproof\ProjectWeek\week_1\anony_blog\server\controller\controller.js">
+      <file name="controller.js" path="C:\Users\user\anonyblog\anony_blog\server\controller\controller.js">
         <metrics statements="22" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -53,19 +53,19 @@
     </package>
     <package name="server.models">
       <metrics statements="27" coveredstatements="15" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="3"/>
-      <file name="model.js" path="E:\Documents - data drive\futureproof\ProjectWeek\week_1\anony_blog\server\models\model.js">
+      <file name="model.js" path="C:\Users\user\anonyblog\anony_blog\server\models\model.js">
         <metrics statements="27" coveredstatements="15" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="3"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
-        <line num="7" count="3" type="stmt"/>
-        <line num="8" count="3" type="stmt"/>
-        <line num="9" count="3" type="stmt"/>
-        <line num="10" count="3" type="stmt"/>
-        <line num="11" count="3" type="stmt"/>
-        <line num="12" count="3" type="stmt"/>
-        <line num="13" count="3" type="stmt"/>
+        <line num="7" count="9" type="stmt"/>
+        <line num="8" count="9" type="stmt"/>
+        <line num="9" count="9" type="stmt"/>
+        <line num="10" count="9" type="stmt"/>
+        <line num="11" count="9" type="stmt"/>
+        <line num="12" count="9" type="stmt"/>
+        <line num="13" count="9" type="stmt"/>
         <line num="16" count="2" type="stmt"/>
-        <line num="17" count="2" type="stmt"/>
+        <line num="17" count="8" type="stmt"/>
         <line num="18" count="2" type="stmt"/>
         <line num="19" count="2" type="stmt"/>
         <line num="20" count="2" type="stmt"/>
