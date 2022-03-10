@@ -1,73 +1,102 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+
 function buildDeck() {
     console.log('building deck')
     fetch('http://localhost:3000/articles')
         .then((response) => response.json())
         .then((data) => {
+            // Get Card wrapper
             const wrapper = document.getElementById('cards')
-            
+
+            // Loop for building cards
             for (index in data) {
+
                 let cardId = parseInt(index)
                 cardId += 1
+
+                // Constructs new deck to be place in html
                 const card = cardTemplate(data[index], cardId)
-                const cardNum = document.getElementById(`cardNum${cardId}`)
-                if (cardNum) {
-                    cardNum.remove()
-                }
 
+                // Removes old deck on html page
+                removeStaleDeck(cardId)
+
+                // Feeds new deck to html page
                 wrapper.insertAdjacentHTML('afterbegin', card)
-            }
 
-            submitReaction()
-            showComments()
+            }
+            // initialises event controller after cards added to deck
+            //  eventListernerController()
+        })
 
 }
 
-function sendComments(comment){
+const removeStaleDeck = (cardId) => {
 
+    const cardNum = document.getElementById(`cardNum${cardId}`)
+    if (cardNum) {
+        cardNum.remove()
+    }
+
+}
+
+function sendComments(comment) {
     commentData = {
         id: parseInt(comment.target[1].value),
         comments: comment.target[0].value
     }
-    console.log(comment)
-    console.log(comment.target[0].value)
-    
+    console.log(commentData)
 
     const options = {
         method: 'POST',
         body: JSON.stringify(commentData),
-
         headers: {
             "Content-Type": "application/json",
         }
     }
 
-
-    fetch('http://localhost:3000/updatearticlecomment', options)
-    // .then((commentData) => {
-    //     console.log(commentData)
-    // })
- 
-    
-
-}
-function addCommentToModal(comment){
-    let template = `<p>${comment}<p><br>`
-    return template;
-
+    fetch('http://localhost:3000/updatearticlecomment', options).then(() => buildDeck())
 }
 
-function showComments(id){
+function showComments() {
     let commBoxes = document.querySelectorAll(`[id^="commnum"]`)
     commBoxes = Array.from(commBoxes)
-    for(let i = 0;i<commBoxes.length;i++){
+    for (let i = 0; i < commBoxes.length; i++) {
+
         commBoxes[i].addEventListener('submit', (e) => {
             e.preventDefault()
-            sendComments(e)            
+            sendComments(e)
+        })
+
+    }
+}
+
+function submitReaction() {
+    const reactionForm = document.querySelectorAll(`[id*="reactionForm"]`)
+
+    for (let i = 0; i < reactionForm.length; i++) {
+        reactionForm[i].addEventListener('click', (event) => {
+            // event.preventDefault()
+            valueArray = event.target['value'].split(" ")
+
+            const reactionData = {
+                id: parseInt(valueArray[1]),
+                reactions: valueArray[0]
+            }
+            const options = {
+                method: 'POST',
+                body: JSON.stringify(reactionData),
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            }
+            const responsePromise = fetch('http://localhost:3000/updatearticlereaction', options).then(() => buildDeck())
+
+            console.log('test')
+            return responsePromise
         })
     }
-
 }
+
 function reactionsHandler(reactionsArray) {
     const summary = {};
     let reactionTemplate = '';
@@ -84,14 +113,26 @@ function reactionsHandler(reactionsArray) {
 
         const keyClean = `&#x${key.split("+")[1]}`
         if (value != 'No reactions') {
-            reactionTemplate += `<span>${keyClean}: ${value}</span>`}
+            reactionTemplate += `<span>${keyClean}: ${value}</span>`
+        }
     }
     return reactionTemplate
 }
 
-
 function cardTemplate(data, index) {
-
+    console.log('adding data to card template')
+    function commentLoop() {
+        let commentList = ''
+        let count = 0
+        for (i in data.comments) {
+            if (data.comments[i] !== null) {
+                const newComment = `<li class="list-group-item">${data.comments[i]}</li>`
+                commentList += newComment
+                count += 1
+            }
+        }
+        return [commentList, count]
+    }
     const reactionsSummary = reactionsHandler(data['reactions'])
     const template = `<div id="cardNum${index}"class="col">
     <div class="card shadow">
@@ -111,17 +152,17 @@ function cardTemplate(data, index) {
                     <i class="fa-solid fa-comment">
                         <span
                             class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger comment-pill">
-                            ${data['comments'].length}
+                            ${commentLoop()[1]}
                             <span class="visually-hidden">Comments</span>
                     </i>
                 </a>
                 <form id="reactionForm${index}">
-                    <button value="U+1F642 ${index}" class="emoji-btn-format">&#x1F642</button>
-                    <button value="U+1F610 ${index}" class="emoji-btn-format">&#x1F610</button>
-                    <button value="U+1F602 ${index}" class="emoji-btn-format">&#x1F602</button>
-                    <button value="U+2639 ${index}" class="emoji-btn-format">&#x2639</button>
-                    <button value="U+1F621 ${index}" class="emoji-btn-format">&#x1F621</button>
-                    <button value="U+1F600 ${index}" class="emoji-btn-format">&#x1F600</button>
+                    <button type="button" value="U+1F642 ${index}" class="emoji-btn-format">&#x1F642</button>
+                    <button type="button" value="U+1F610 ${index}" class="emoji-btn-format">&#x1F610</button>
+                    <button type="button" value="U+1F602 ${index}" class="emoji-btn-format">&#x1F602</button>
+                    <button type="button" value="U+2639 ${index}" class="emoji-btn-format">&#x2639</button>
+                    <button type="button" value="U+1F621 ${index}" class="emoji-btn-format">&#x1F621</button>
+                    <button type="button" value="U+1F600 ${index}" class="emoji-btn-format">&#x1F600</button>
                 </form>
                 
             </div>
@@ -136,12 +177,7 @@ function cardTemplate(data, index) {
 
                         <div>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
-                                    
-                                </li>
-                                <li class="list-group-item">
-                                    
-                                </li>
+                                ${commentLoop()[0]}
                             </ul>
                         </div>
                     </div>
@@ -152,40 +188,15 @@ function cardTemplate(data, index) {
 </div>`
     return template
 }
+console.log(typeof buildDeck())
 
-
-
-function submitReaction() {
-    const reactionForm = document.querySelectorAll(`[id*="reactionForm"]`)
-    for (let i=0; i< reactionForm.length; i++) {
-        reactionForm[i].addEventListener('click', (event) => {
-            event.preventDefault()
-            valueArray = event.target['value'].split(" ")
-
-            const reactionData = {
-                id: parseInt(valueArray[1]),
-                reactions: valueArray[0]
-            }
-            const options = {
-                method: 'POST',
-                body: JSON.stringify(reactionData),
-                headers: {
-                    "Content-Type": "application/json",
-                }
-            }
-            fetch('http://localhost:3000/updatearticlereaction', options)
-
-            // buildDeck()
-
-        })
-    }
-}
-
-module.exports = { buildDeck, submitReaction }
+module.exports = { buildDeck, submitReaction, showComments }
 
 },{}],2:[function(require,module,exports){
+const { buildDeck } = require("./cardCreation");
 
 function submitArticle(event) {
+    event.preventDefault()
     console.log('form submitted')
     try {
         const articleData = {
@@ -196,6 +207,7 @@ function submitArticle(event) {
             reactions: [null],
             giphys: event.target['articleGiphy'].value
         };
+        console.log('submitarticle', articleData)
         const options = {
             method: 'POST',
             body: JSON.stringify(articleData),
@@ -204,11 +216,12 @@ function submitArticle(event) {
             }
         }
         // TODO this fetch will most likely need to change before production
-        fetch('http://localhost:3000/create', options)
+        
+        fetch('http://localhost:3000/create', options).then(()=>buildDeck())
         closeModalOnSuccess()
         successAlert('Journal entry submitted', 'success')
     } catch {
-
+        console.log()
     }
 }
 
@@ -219,7 +232,6 @@ function closeModalOnSuccess() {
 }
 
 function successAlert(message, type) {
-    toaster()
     const alertWrapper = document.createElement('div')
     alertWrapper.setAttribute('class', `alert alert-${type} alert-dismissible`)
     alertWrapper.setAttribute('role', 'alert')
@@ -237,38 +249,42 @@ function successAlert(message, type) {
     submitAlert.append(alertWrapper)
 }
 
-function toaster() {
-    const option = {
-        animation: true,
-        delay: 3000
-    };
-
-    let toastHTMLEl = document.getElementById('liveToast')
-    let toastEl = new bootstrap.Toast(toastHTMLEl, option)
-    toastEl.show()
-
-}
-
 module.exports = { submitArticle }
 
-},{}],3:[function(require,module,exports){
+},{"./cardCreation":1}],3:[function(require,module,exports){
 const { submitArticle } = require("./handler");
-const { buildDeck, submitReaction } = require("./cardCreation")
+const { buildDeck, submitReaction, showComments } = require("./cardCreation");
+
+
 
 window.onload = () => {
+
     buildDeck()
+
+    console.log('done')
+    const cardDeck = document.getElementById('cards')
+
+     var observer = new MutationObserver(function (mutationRecords) {
+        console.log("change detected");
+        const reactionForm = document.querySelectorAll(`[id*="reactionForm"]`)
+        submitReaction()
+        showComments()
+    });
+    observer.observe(cardDeck, { childList: true })
+
+
+
 }
 
 // selectors
 const articleForm = document.querySelector('#userForm');
 
-
-
 // event listeners
 articleForm.addEventListener('submit', (event) => {
     event.preventDefault()
     submitArticle(event);
-    buildDeck()
+
+
 })
 
 

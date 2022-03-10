@@ -1,5 +1,7 @@
+const { buildDeck } = require("./cardCreation");
 
 function submitArticle(event) {
+    event.preventDefault()
     console.log('form submitted')
     try {
         const articleData = {
@@ -10,6 +12,7 @@ function submitArticle(event) {
             reactions: [null],
             giphys: [null]
         };
+        console.log('submitarticle', articleData)
         const options = {
             method: 'POST',
             body: JSON.stringify(articleData),
@@ -18,11 +21,12 @@ function submitArticle(event) {
             }
         }
         // TODO this fetch will most likely need to change before production
-        fetch('http://localhost:3000/create', options)
+        
+        fetch('http://localhost:3000/create', options).then(()=>buildDeck())
         closeModalOnSuccess()
         successAlert('Journal entry submitted', 'success')
     } catch {
-
+        console.log()
     }
 }
 
@@ -33,7 +37,6 @@ function closeModalOnSuccess() {
 }
 
 function successAlert(message, type) {
-    toaster()
     const alertWrapper = document.createElement('div')
     alertWrapper.setAttribute('class', `alert alert-${type} alert-dismissible`)
     alertWrapper.setAttribute('role', 'alert')
@@ -49,18 +52,6 @@ function successAlert(message, type) {
     alertWrapper.append(btn)
     const submitAlert = document.getElementById('submitAlert')
     submitAlert.append(alertWrapper)
-}
-
-function toaster() {
-    const option = {
-        animation: true,
-        delay: 3000
-    };
-
-    let toastHTMLEl = document.getElementById('liveToast')
-    let toastEl = new bootstrap.Toast(toastHTMLEl, option)
-    toastEl.show()
-
 }
 
 module.exports = { submitArticle }

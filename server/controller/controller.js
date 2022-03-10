@@ -4,21 +4,25 @@ const router = express.Router()
 const articles = require('../data.js')
 
 router.get('/articles', (req,res) => {
+  // console.log('request ',req)
+  console.log('articles ',articles)
   const articlesData = Article.all
-  console.log(articlesData)
-  res.send(articlesData)
+  console.log('controller ',articlesData)
+  res.json(articlesData)
 })
 
 router.post('/create', (req,res) => {
   const data = req.body;
-  console.log('controller', data)
+
   const newArticle = Article.create(data)
   res.status(201).send(newArticle)
 })
 
 router.post('/updatearticlereaction', (req, res) => {
   const data = req.body;
+  
   const articleToUpdate = Article.updateReactionById(data)
+  // console.log('reaction update',articleToUpdate)
   res.status(201).send(articleToUpdate)
 })
 

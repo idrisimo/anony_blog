@@ -1,37 +1,49 @@
+
 function buildDeck() {
     console.log('building deck')
     fetch('http://localhost:3000/articles')
         .then((response) => response.json())
         .then((data) => {
+            // Get Card wrapper
             const wrapper = document.getElementById('cards')
-            
+
+            // Loop for building cards
             for (index in data) {
+
                 let cardId = parseInt(index)
                 cardId += 1
+
+                // Constructs new deck to be place in html
                 const card = cardTemplate(data[index], cardId)
-                const cardNum = document.getElementById(`cardNum${cardId}`)
-                if (cardNum) {
-                    cardNum.remove()
-                }
 
+                // Removes old deck on html page
+                removeStaleDeck(cardId)
+
+                // Feeds new deck to html page
                 wrapper.insertAdjacentHTML('afterbegin', card)
+
             }
-
-
-            submitReaction()
-            showComments()
-
+            // initialises event controller after cards added to deck
+            //  eventListernerController()
         })
+
 }
 
-function sendComments(comment){
+const removeStaleDeck = (cardId) => {
+
+    const cardNum = document.getElementById(`cardNum${cardId}`)
+    if (cardNum) {
+        cardNum.remove()
+    }
+
+}
+
+function sendComments(comment) {
     commentData = {
         id: parseInt(comment.target[1].value),
         comments: comment.target[0].value
     }
-    console.log(comment)
-    console.log(comment.target[0].value)
-    
+    console.log(commentData)
 
     const options = {
         method: 'POST',
@@ -41,53 +53,49 @@ function sendComments(comment){
         }
     }
 
-    fetch('http://localhost:3000/updatearticlecomment', options)
-    // .then((commentData) => {
-    //     console.log(commentData)
-    // })
- 
-    
+    fetch('http://localhost:3000/updatearticlecomment', options).then(() => buildDeck())
 }
-function addCommentToModal(comment){
-    let template = `<p>${comment}<p><br>`
-    return template;
 
-}
-function showComments(id){
+function showComments() {
     let commBoxes = document.querySelectorAll(`[id^="commnum"]`)
     commBoxes = Array.from(commBoxes)
-    for(let i = 0;i<commBoxes.length;i++){
+    for (let i = 0; i < commBoxes.length; i++) {
 
         commBoxes[i].addEventListener('submit', (e) => {
             e.preventDefault()
-            sendComments(e)            
+            sendComments(e)
         })
 
     }
-
-
-    // let commentTemplate = `<p>${data['comments']}</p><br>`
-    // let template = `
-    // <div class="modal" tabindex="-1" role="dialog">
-    // <div class="modal-dialog" role="document">
-    //     <div class="modal-content">
-    //     <div class="modal-header">
-    //         <h5 class="modal-title">Comments</h5>
-    //         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-    //         <span aria-hidden="true">&times;</span>
-    //         </button>
-    //     </div>
-    //     <div class="modal-body">
-    //         <p>${commentTemplate}</p>
-    //     </div>
-    //     <div class="modal-footer">
-    //         <button type="button" class="btn btn-primary">Save changes</button>
-    //         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-    //     </div>
-    //     </div>
-    // </div>
-    // </div>`
 }
+
+function submitReaction() {
+    const reactionForm = document.querySelectorAll(`[id*="reactionForm"]`)
+
+    for (let i = 0; i < reactionForm.length; i++) {
+        reactionForm[i].addEventListener('click', (event) => {
+            // event.preventDefault()
+            valueArray = event.target['value'].split(" ")
+
+            const reactionData = {
+                id: parseInt(valueArray[1]),
+                reactions: valueArray[0]
+            }
+            const options = {
+                method: 'POST',
+                body: JSON.stringify(reactionData),
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            }
+            const responsePromise = fetch('http://localhost:3000/updatearticlereaction', options).then(() => buildDeck())
+
+            console.log('test')
+            return responsePromise
+        })
+    }
+}
+
 function reactionsHandler(reactionsArray) {
     const summary = {};
     let reactionTemplate = '';
@@ -104,14 +112,26 @@ function reactionsHandler(reactionsArray) {
 
         const keyClean = `&#x${key.split("+")[1]}`
         if (value != 'No reactions') {
-            reactionTemplate += `<span>${keyClean}: ${value}</span>`}
+            reactionTemplate += `<span>${keyClean}: ${value}</span>`
+        }
     }
     return reactionTemplate
 }
 
-
 function cardTemplate(data, index) {
-
+    console.log('adding data to card template')
+    function commentLoop() {
+        let commentList = ''
+        let count = 0
+        for (i in data.comments) {
+            if (data.comments[i] !== null) {
+                const newComment = `<li class="list-group-item">${data.comments[i]}</li>`
+                commentList += newComment
+                count += 1
+            }
+        }
+        return [commentList, count]
+    }
     const reactionsSummary = reactionsHandler(data['reactions'])
     const template = `<div id="cardNum${index}"class="col">
     <div class="card shadow">
@@ -131,17 +151,17 @@ function cardTemplate(data, index) {
                     <i class="fa-solid fa-comment">
                         <span
                             class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger comment-pill">
-                            ${data['comments'].length}
+                            ${commentLoop()[1]}
                             <span class="visually-hidden">Comments</span>
                     </i>
                 </a>
                 <form id="reactionForm${index}">
-                    <button value="U+1F642 ${index}" class="emoji-btn-format">&#x1F642</button>
-                    <button value="U+1F610 ${index}" class="emoji-btn-format">&#x1F610</button>
-                    <button value="U+1F602 ${index}" class="emoji-btn-format">&#x1F602</button>
-                    <button value="U+2639 ${index}" class="emoji-btn-format">&#x2639</button>
-                    <button value="U+1F621 ${index}" class="emoji-btn-format">&#x1F621</button>
-                    <button value="U+1F600 ${index}" class="emoji-btn-format">&#x1F600</button>
+                    <button type="button" value="U+1F642 ${index}" class="emoji-btn-format">&#x1F642</button>
+                    <button type="button" value="U+1F610 ${index}" class="emoji-btn-format">&#x1F610</button>
+                    <button type="button" value="U+1F602 ${index}" class="emoji-btn-format">&#x1F602</button>
+                    <button type="button" value="U+2639 ${index}" class="emoji-btn-format">&#x2639</button>
+                    <button type="button" value="U+1F621 ${index}" class="emoji-btn-format">&#x1F621</button>
+                    <button type="button" value="U+1F600 ${index}" class="emoji-btn-format">&#x1F600</button>
                 </form>
                 
             </div>
@@ -156,12 +176,7 @@ function cardTemplate(data, index) {
 
                         <div>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
-                                    
-                                </li>
-                                <li class="list-group-item">
-                                    
-                                </li>
+                                ${commentLoop()[0]}
                             </ul>
                         </div>
                     </div>
@@ -172,32 +187,6 @@ function cardTemplate(data, index) {
 </div>`
     return template
 }
+console.log(typeof buildDeck())
 
-
-function submitReaction() {
-    const reactionForm = document.querySelectorAll(`[id*="reactionForm"]`)
-    for (let i=0; i< reactionForm.length; i++) {
-        reactionForm[i].addEventListener('click', (event) => {
-            event.preventDefault()
-            valueArray = event.target['value'].split(" ")
-
-            const reactionData = {
-                id: parseInt(valueArray[1]),
-                reactions: valueArray[0]
-            }
-            const options = {
-                method: 'POST',
-                body: JSON.stringify(reactionData),
-                headers: {
-                    "Content-Type": "application/json",
-                }
-            }
-            fetch('http://localhost:3000/updatearticlereaction', options)
-
-            // buildDeck()
-
-        })
-    }
-}
-
-module.exports = { buildDeck, submitReaction }
+module.exports = { buildDeck, submitReaction, showComments }
