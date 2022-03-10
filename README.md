@@ -81,7 +81,7 @@ Currently there are 4 unique endpoints
 - Added character limit to post
 
 ## Bugs
-- Every time a comment is submitted, the tab for the comment disappears
+- Every time a comment is submitted, the tab for the comment closes
 - GIPHY url is not saving to article array
 
 ## Wins and Challenges
