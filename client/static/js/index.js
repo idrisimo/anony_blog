@@ -29,8 +29,6 @@ const articleForm = document.querySelector('#userForm');
 articleForm.addEventListener('submit', (event) => {
     event.preventDefault()
     submitArticle(event);
-
-
 })
 
 
