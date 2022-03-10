@@ -20,10 +20,13 @@ body{
 .hero {
   background-image: linear-gradient(to bottom, black, rgba(0, 0, 0, 0)),url("../image/background-img.png");
   /* background-image: linear-gradient(to bottom, black, rgba(0, 0, 0, 0)),url("https://s10721.pcdn.co/wp-content/uploads/2008/07/keeping-a-journal-1.jpg"); */
+  /* background-image: linear-gradient(to top, rgb(0, 0, 0), rgba(102, 101, 101, 0.2)),url("https://cdn.pixabay.com/photo/2016/03/24/13/45/notepad-1276779_960_720.jpg"); */
 	background-size: cover;
+  background-repeat: no-repeat;
   display: flex;
   justify-content: center;
 	height: 100vh;
+
 }
 
 .hero-text {
