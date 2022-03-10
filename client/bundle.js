@@ -20,10 +20,11 @@ function buildDeck() {
 
             submitReaction()
             showComments()
-        })
+
 }
 
 function sendComments(comment){
+
     commentData = {
         id: parseInt(comment.target[1].value),
         comments: comment.target[0].value
@@ -35,10 +36,12 @@ function sendComments(comment){
     const options = {
         method: 'POST',
         body: JSON.stringify(commentData),
+
         headers: {
             "Content-Type": "application/json",
         }
     }
+
 
     fetch('http://localhost:3000/updatearticlecomment', options)
     // .then((commentData) => {
@@ -46,12 +49,14 @@ function sendComments(comment){
     // })
  
     
+
 }
 function addCommentToModal(comment){
     let template = `<p>${comment}<p><br>`
     return template;
 
 }
+
 function showComments(id){
     let commBoxes = document.querySelectorAll(`[id^="commnum"]`)
     commBoxes = Array.from(commBoxes)
@@ -62,28 +67,6 @@ function showComments(id){
         })
     }
 
-
-    // let commentTemplate = `<p>${data['comments']}</p><br>`
-    // let template = `
-    // <div class="modal" tabindex="-1" role="dialog">
-    // <div class="modal-dialog" role="document">
-    //     <div class="modal-content">
-    //     <div class="modal-header">
-    //         <h5 class="modal-title">Comments</h5>
-    //         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-    //         <span aria-hidden="true">&times;</span>
-    //         </button>
-    //     </div>
-    //     <div class="modal-body">
-    //         <p>${commentTemplate}</p>
-    //     </div>
-    //     <div class="modal-footer">
-    //         <button type="button" class="btn btn-primary">Save changes</button>
-    //         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-    //     </div>
-    //     </div>
-    // </div>
-    // </div>`
 }
 function reactionsHandler(reactionsArray) {
     const summary = {};
@@ -102,12 +85,10 @@ function reactionsHandler(reactionsArray) {
         const keyClean = `&#x${key.split("+")[1]}`
         if (value != 'No reactions') {
             reactionTemplate += `<span>${keyClean}: ${value}</span>`}
-        // } else {
-        //     reactionTemplate += `<span>${value}</span>`
-        // }
     }
     return reactionTemplate
 }
+
 
 function cardTemplate(data, index) {
 
@@ -173,26 +154,6 @@ function cardTemplate(data, index) {
 }
 
 
-function removeCards(event) {
-    // Skywalker in the jedi temple.
-    event.preventDefault()
-    const wrapper = document.getElementById('cards');
-    let child = wrapper.lastElementChild; 
-    while (child) {
-        wrapper.removeChild(child)
-        child = wrapper.lastElementChild;
-    }
-    console.log(numOfCards.length, data.length)
-    // Skywalker in the jedi temple.
-    // console.log('removing cards')
-    // const wrapper = document.getElementById('cards');
-    // console.log()
-    // let child = wrapper.lastElementChild; 
-    // while (child) {
-    //     wrapper.removeChild(child)
-    //     child = wrapper.lastElementChild;
-    // }
-}
 
 function submitReaction() {
     const reactionForm = document.querySelectorAll(`[id*="reactionForm"]`)
@@ -201,7 +162,7 @@ function submitReaction() {
             event.preventDefault()
             valueArray = event.target['value'].split(" ")
 
-            reactionData = {
+            const reactionData = {
                 id: parseInt(valueArray[1]),
                 reactions: valueArray[0]
             }
@@ -214,13 +175,13 @@ function submitReaction() {
             }
             fetch('http://localhost:3000/updatearticlereaction', options)
 
-            buildDeck()
+            // buildDeck()
 
         })
     }
 }
 
-module.exports = { buildDeck, removeCards, submitReaction }
+module.exports = { buildDeck, submitReaction }
 
 },{}],2:[function(require,module,exports){
 
@@ -235,7 +196,6 @@ function submitArticle(event) {
             reactions: [null],
             giphys: event.target['articleGiphy'].value
         };
-        console.log('submitarticle', articleData)
         const options = {
             method: 'POST',
             body: JSON.stringify(articleData),
@@ -259,6 +219,7 @@ function closeModalOnSuccess() {
 }
 
 function successAlert(message, type) {
+    toaster()
     const alertWrapper = document.createElement('div')
     alertWrapper.setAttribute('class', `alert alert-${type} alert-dismissible`)
     alertWrapper.setAttribute('role', 'alert')
@@ -276,21 +237,31 @@ function successAlert(message, type) {
     submitAlert.append(alertWrapper)
 }
 
+function toaster() {
+    const option = {
+        animation: true,
+        delay: 3000
+    };
 
+    let toastHTMLEl = document.getElementById('liveToast')
+    let toastEl = new bootstrap.Toast(toastHTMLEl, option)
+    toastEl.show()
 
+}
 
 module.exports = { submitArticle }
 
 },{}],3:[function(require,module,exports){
 const { submitArticle } = require("./handler");
-const {buildDeck, removeCards, submitReaction} = require("./cardCreation")
+const { buildDeck, submitReaction } = require("./cardCreation")
+
 window.onload = () => {
     buildDeck()
 }
 
-
 // selectors
 const articleForm = document.querySelector('#userForm');
+
 
 
 // event listeners
@@ -300,9 +271,6 @@ articleForm.addEventListener('submit', (event) => {
     buildDeck()
 })
 
-
-
-// reactionForm.addEventListener('click', () => {console.log('cliclclc')})
 
 
 
