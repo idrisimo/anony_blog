@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "dev": "concurrently \"watchify ./static/js/index.js -o bundle.js\" \"py -m http.server\""
+    "dev": "concurrently \"watchify ./static/js/index.js -o bundle.js\" \"py -m http.server\"",
+    "start": "http-server",
+    "coverage": "jest --coverage"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +17,7 @@
     "express": "^4.17.3",
     "http-server": "^14.1.0",
     "jest": "^27.5.1",
+    "jest-fetch-mock": "^3.0.3",
     "supertest": "^6.2.2",
     "watchify": "^4.0.0"
   }
