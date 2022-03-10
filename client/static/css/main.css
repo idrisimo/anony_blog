@@ -18,7 +18,7 @@ body{
   background-color: rgb(240, 225, 225);
 }
 .hero {
-  background-image: linear-gradient(to bottom, black, rgba(0, 0, 0, 0)),url("/client/static/image/background-img.png");
+  background-image: linear-gradient(to bottom, black, rgba(0, 0, 0, 0)),url("../image/background-img.png");
   /* background-image: linear-gradient(to bottom, black, rgba(0, 0, 0, 0)),url("https://s10721.pcdn.co/wp-content/uploads/2008/07/keeping-a-journal-1.jpg"); */
 	background-size: cover;
   display: flex;
