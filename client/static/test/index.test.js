@@ -4,6 +4,7 @@
 
 const fs = require('fs');
 const path = require('path');
+
 const html = fs.readFileSync(path.resolve(__dirname, '../../index.html'), 'utf8');
 global.fetch = require('jest-fetch-mock');
 let app
@@ -201,8 +202,25 @@ describe('Check JS files', () => {
 
     })
 
-    describe('checking index.js', () => {
-
-    })
+//     describe('checking index.js', () => {
+//         let app
+//         let articleForm;
+//         let events ={};
+//         beforeEach(()=>{
+//             app = require('../js/index.js');
+//             articleForm = app.SubmitClass()
+//             events = {}
+//             document.addEventListener = jest.fn((event, callback)=>{
+//                 events[event] = callback;
+//             })
+//             document.removeEventListener = jest.fn((event, callback)=>{
+//                delete events[event];
+//             })
+//         })
+//         test('it should detect the submit event from "#userForm"', ()=>{
+//             jest.spyOn(articleForm, 'submit')
+//             articleForm.submitFunction()
+//             expect(articleForm.submitEvent).toHaveBeenCalled();
+//         })
+//     })
 })
-
