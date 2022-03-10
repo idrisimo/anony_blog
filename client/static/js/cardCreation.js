@@ -1,16 +1,19 @@
+const { API_URL } = require("./url")
+
+
 function getAllArticles() {
-    return fetch('http://localhost:3000/articles').then((response) => response.json()).catch(console.warn)
-    
+    return fetch(`${API_URL}/articles`).then((response) => response.json()).catch(console.warn)
+
 }
 
 
 function buildDeck() {
     console.log('building deck')
-    // fetch('http://localhost:3000/articles')
-    //     .then((response) => response.json())
+
     const response = getAllArticles()
-        response.then((data) => {
-           try { // Get Card wrapper
+    response.then((data) => {
+        try {
+            // Get Card wrapper
             const wrapper = document.getElementById('cards')
 
             // Loop for building cards
@@ -33,9 +36,9 @@ function buildDeck() {
         } catch {
             return false
         }
-            // initialises event controller after cards added to deck
-            //  eventListernerController()
-        })
+        // initialises event controller after cards added to deck
+        //  eventListernerController()
+    })
 }
 
 const removeStaleDeck = (cardId) => {
@@ -62,7 +65,7 @@ function sendComments(comment) {
         }
     }
 
-    fetch('http://localhost:3000/updatearticlecomment', options).then(() => buildDeck())
+    fetch(`${API_URL}/updatearticlecomment`, options).then(() => buildDeck())
 }
 
 function showComments() {
@@ -85,17 +88,17 @@ function constructReactionData(event) {
         reactions: valueArray[0]
     }
     console.log(reactionData)
-            const options = {
-                method: 'POST',
-                body: JSON.stringify(reactionData),
-                headers: {
-                    "Content-Type": "application/json",
-                }
-            }
-            fetch('http://localhost:3000/updatearticlereaction', options).then(() => buildDeck())
+    const options = {
+        method: 'POST',
+        body: JSON.stringify(reactionData),
+        headers: {
+            "Content-Type": "application/json",
+        }
+    }
+    fetch(`${API_URL}/updatearticlereaction`, options).then(() => buildDeck())
 }
 
-function submitReaction(){
+function submitReaction() {
     const reactionForm = document.querySelectorAll(`[id*="reactionForm"]`)
 
     for (let i = 0; i < reactionForm.length; i++) {
