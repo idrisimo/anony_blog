@@ -8,16 +8,16 @@ router.get('/articles', (req,res) => {
   res.send(articlesData)
 })
 
-router.post('/', (req,res) => {
+router.post('/create', (req,res) => {
   const data = req.body;
+  console.log('controller', data)
   const newArticle = Article.create(data)
   res.status(201).send(newArticle)
 })
 
 router.post('/update', (req, res) => {
-  const data = req.body
-  const articleToUpdate = Article.updateById(data)
-  console.log(articleToUpdate)
+  const data = req.body;
+  const articleToUpdate = Article.updateReactionById(data)
   res.status(201).send(articleToUpdate)
 })
 
@@ -25,11 +25,12 @@ module.exports = router
 
 },{"../models/model":4,"express":128}],2:[function(require,module,exports){
 const articles =  [
-    { id:1, title: "article 1", createdAt:"", description:"Very good article 1",comments: ["Good post", "I like this post"],reactions: ["U+1F600", "U+1F600"]},
-    { id:2, title: "article 2", createdAt:"", description:"Very good article 2",comments: ["I hate this post", "bad post"],reactions: [null]},
-    { id:3, title: "article 3", createdAt:"", description:"Very good article 3",comments: ["I hate this post", "bad post"],reactions: ["U+1F600"]},
-    { id:4, title: "article 4", createdAt:"", description:"Very good article 4",comments: ["I hate this post", "bad post"],reactions: ["U+1F600", "U+1F600", "U+1F602"]}
+    { id:1, title: "article 1", createdAt:"", description:"Very good article 1",comments: ["Good post", "I like this post"],reactions: ["U+1F600", "U+1F600"], giphy: [null]},
+    { id:2, title: "article 2", createdAt:"", description:"Very good article 2",comments: ["I hate this post", "bad post"],reactions:  [null], giphy: [null]},
+    { id:3, title: "article 3", createdAt:"", description:"Very good article 3",comments: ["OK post", "Not a bad post"],reactions:  ["U+1F600"], giphy: [null]},
+    { id:4, title: "article 4", createdAt:"", description:"Very good article 4",comments: ["Great post! ", "I relate to this post"],reactions: ["U+1F600", "U+1F600", "U+1F602"], giphy: [null]}
 ]
+
 module.exports = articles
 
 },{}],3:[function(require,module,exports){
@@ -50,24 +51,28 @@ class Article{
       this.description = data.description
       this.comments = data.comments
       this.reactions = data.reactions
+      this.giphys = data.giphy
     }
     static get all(){
       const articles = articlesData.map((article) => new Article(article));
-      console.log(articles)
+      console.log(articles[3])
       return articles
     }
     static create (article) {
       const newArticleId = articlesData.length +1;
-
+      
       const newArticle = new Article({id:newArticleId, ...article});
+      console.log('model ',newArticle)
       articlesData.push(newArticle);
       return  articlesData;
     }
-    static updateById (reactionData) {
-      const id = reactionData.id;
+    static updateReactionById (reactionData) {
+      const id = reactionData.id - 1;
       const reaction = reactionData.reactions
-      const articleData = articlesData.filter((article) => article.id === id)
-      articleData[0].reactions.push(reaction)
+      // const articleData = articlesData.filter((article) => article.id === id)
+      articlesData[id].reactions.push(reaction)
+      // console.log(articlesData[id])
+      return articlesData;
     }
   }
   module.exports = Article
