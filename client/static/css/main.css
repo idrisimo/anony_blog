@@ -130,12 +130,15 @@ footer{
   padding: 20px 0 ;
   background: rgb(240, 240, 240);
   position: relative;
+  margin-top: 30px;
 }
 
 footer a{
   text-decoration: none;
+
 }
 
 .social-links{
   text-align: center;
+  font-size: 12px;
 }
