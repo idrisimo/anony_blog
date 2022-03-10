@@ -28,11 +28,6 @@ describe('Article model', () => {
     expect(articles).toEqual(articlesData);
   });
 
-  // it('should return an article', () => {
-  //   const article = Article.findById(1);
-
-  //   expect(article).toEqual(articlesData[0]);
-  // })
 
   it('should throw an error if no article found', () => {
     function testError() {
@@ -42,12 +37,26 @@ describe('Article model', () => {
     expect(testError).toThrowError('')
   })
 
-  // it('should create article', () => {
-  //    const newArticleId = articlesData.length + 1;
-  //   const newArticle = Article.create(testArticle)
+  it('should contain reactions', () => {
+  expect(testArticle.reactions).toContain('U+1F600');
+});
 
-  //   expect(newArticle).toBe({id:newArticleId, ...testArticle})
-  // });
+ it('should have article contain keys', () => {
+
+  expect(testArticle).toHaveProperty('title');
+  expect(testArticle).toHaveProperty('createdAt');
+  expect(testArticle).toHaveProperty('description');
+  expect(testArticle).toHaveProperty('comments');
+  expect(testArticle).toHaveProperty('reactions');
+
+  });
+
+//   it('should create article', () => {
+//      const newArticleId = articlesData.length + 1;
+//     const newArticle = Article.create(testArticle)
+
+//     expect(newArticle).toBe({id:newArticleId})
+// })
 
 
   // it('should update the article', () => {
