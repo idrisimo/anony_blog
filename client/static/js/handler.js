@@ -1,5 +1,7 @@
+const { buildDeck } = require("./cardCreation");
 
 function submitArticle(event) {
+    event.preventDefault()
     console.log('form submitted')
     try {
         const articleData = {
@@ -18,8 +20,8 @@ function submitArticle(event) {
             }
         }
         // TODO this fetch will most likely need to change before production
-        // event.preventDefault()
-        fetch('http://localhost:3000/create', options)
+        
+        fetch('http://localhost:3000/create', options).then(()=>buildDeck())
         closeModalOnSuccess()
         successAlert('Journal entry submitted', 'success')
     } catch {

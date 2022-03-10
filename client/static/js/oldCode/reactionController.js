@@ -1,7 +1,9 @@
-const { buildDeck } = require("./cardCreation")
+// const { buildDeck } = require("./cardCreation");
+
 
 function submitReaction() {
     const reactionForm = document.querySelectorAll(`[id*="reactionForm"]`)
+
     for (let i=0; i< reactionForm.length; i++) {
         reactionForm[i].addEventListener('click', (event) => {
             // event.preventDefault()
@@ -18,8 +20,10 @@ function submitReaction() {
                     "Content-Type": "application/json",
                 }
             }
-            fetch('http://localhost:3000/updatearticlereaction', options)
+            const responsePromise = fetch('http://localhost:3000/updatearticlereaction', options)
+            
             console.log('test')
+            return responsePromise
         })
     }
 }

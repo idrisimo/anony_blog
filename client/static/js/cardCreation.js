@@ -1,5 +1,3 @@
-const {reactionsHandler, submitReaction} = require('./reactionController')
-const {showComments} = require('./commentController')
 
 function buildDeck() {
     console.log('building deck')
@@ -23,7 +21,7 @@ function buildDeck() {
 
                 // Feeds new deck to html page
                 wrapper.insertAdjacentHTML('afterbegin', card)
-                
+
             }
             // initialises event controller after cards added to deck
             //  eventListernerController()
@@ -40,26 +38,99 @@ const removeStaleDeck = (cardId) => {
 
 }
 
-function eventListernerController(){
-    submitReaction()
-    showComments()
+function sendComments(comment) {
+    commentData = {
+        id: parseInt(comment.target[1].value),
+        comments: comment.target[0].value
+    }
+    console.log(commentData)
+
+    const options = {
+        method: 'POST',
+        body: JSON.stringify(commentData),
+        headers: {
+            "Content-Type": "application/json",
+        }
+    }
+
+    fetch('http://localhost:3000/updatearticlecomment', options).then(() => buildDeck())
 }
 
+function showComments() {
+    let commBoxes = document.querySelectorAll(`[id^="commnum"]`)
+    commBoxes = Array.from(commBoxes)
+    for (let i = 0; i < commBoxes.length; i++) {
 
+        commBoxes[i].addEventListener('submit', (e) => {
+            e.preventDefault()
+            sendComments(e)
+        })
 
+    }
+}
 
+function submitReaction() {
+    const reactionForm = document.querySelectorAll(`[id*="reactionForm"]`)
 
+    for (let i = 0; i < reactionForm.length; i++) {
+        reactionForm[i].addEventListener('click', (event) => {
+            // event.preventDefault()
+            valueArray = event.target['value'].split(" ")
 
+            const reactionData = {
+                id: parseInt(valueArray[1]),
+                reactions: valueArray[0]
+            }
+            const options = {
+                method: 'POST',
+                body: JSON.stringify(reactionData),
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            }
+            const responsePromise = fetch('http://localhost:3000/updatearticlereaction', options).then(() => buildDeck())
+
+            console.log('test')
+            return responsePromise
+        })
+    }
+}
+
+function reactionsHandler(reactionsArray) {
+    const summary = {};
+    let reactionTemplate = '';
+    for (const [index, reaction] of Object.entries(reactionsArray)) {
+        if (reaction === null) {
+            summary[reaction] = 'No reactions'
+        } else if (summary[reaction]) {
+            summary[reaction] += 1;
+        } else {
+            summary[reaction] = 1
+        }
+    }
+    for (const [key, value] of Object.entries(summary)) {
+
+        const keyClean = `&#x${key.split("+")[1]}`
+        if (value != 'No reactions') {
+            reactionTemplate += `<span>${keyClean}: ${value}</span>`
+        }
+    }
+    return reactionTemplate
+}
 
 function cardTemplate(data, index) {
     console.log('adding data to card template')
     function commentLoop() {
         let commentList = ''
-        for (i in data.comments){
-            const newComment = `<li class="list-group-item">${data.comments[i]}</li>`
-            commentList += newComment
+        let count = 0
+        for (i in data.comments) {
+            if (data.comments[i] !== null) {
+                const newComment = `<li class="list-group-item">${data.comments[i]}</li>`
+                commentList += newComment
+                count += 1
+            }
         }
-        return commentList
+        return [commentList, count]
     }
     const reactionsSummary = reactionsHandler(data['reactions'])
     const template = `<div id="cardNum${index}"class="col">
@@ -80,7 +151,7 @@ function cardTemplate(data, index) {
                     <i class="fa-solid fa-comment">
                         <span
                             class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger comment-pill">
-                            ${data['comments'].length}
+                            ${commentLoop()[1]}
                             <span class="visually-hidden">Comments</span>
                     </i>
                 </a>
@@ -105,7 +176,7 @@ function cardTemplate(data, index) {
 
                         <div>
                             <ul class="list-group list-group-flush">
-                                ${commentLoop()}
+                                ${commentLoop()[0]}
                             </ul>
                         </div>
                     </div>
@@ -116,6 +187,6 @@ function cardTemplate(data, index) {
 </div>`
     return template
 }
+console.log(typeof buildDeck())
 
-
-module.exports = { buildDeck, eventListernerController}
+module.exports = { buildDeck, submitReaction, showComments }
