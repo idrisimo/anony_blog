@@ -19,7 +19,6 @@ body{
 }
 .hero {
   background-image: linear-gradient(to bottom, black, rgba(0, 0, 0, 0)),url("/client/static/image/background-img.png");
-
   /* background: linear-gradient(rgba(0,0,0,0.5),#1f1f25), url("/client/static/image/background-img.png"); */
 	background-size: cover;
   display: flex;
@@ -132,15 +131,16 @@ footer{
   padding: 20px 0 ;
   background: rgb(240, 240, 240);
   position: relative;
+
   margin-top: 30px;
 }
 
 footer a{
   text-decoration: none;
-
 }
 
 .social-links{
   text-align: center;
   font-size: 12px;
+
 }

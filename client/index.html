@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,12 +26,15 @@
 </head>
 
 <body>
-    <!--<header>
-        <div> <img src="" alt=""></div>
-        Add logo
-    </header>-->
+
+   
+=======
+    <header>
+    </header>
     <main>
-        <div id="submitAlert"></div>
+        <div class="hero">
+            <div id="submitAlert"></div>
+
 
         <div class="hero ">
           <h1 class="hero-text">Welcome to Anonyblog <br> share your thoughts.</h1>
@@ -43,9 +44,6 @@
               </button>
           </div>
         </div>
-
-
-
         <section id="articles"class="container mt-5">
             <div id="cards" class="row row-cols-1 row-cols-md-2 g-4">
 
@@ -63,15 +61,17 @@
                         <div class="modal-body">
                             <form id="userForm">
                                 <input id="articleTitle" type="text" placeholder="enter title">
-                                <textarea name="" id="articleText" rows="10" class="textarea-format"
+                                <textarea name="" id="articleText" maxlength="250" rows="10" class="textarea-format"
                                     placeholder="What you thinking"></textarea>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <input type="text" id="giphyinput">
-                            <button type="button" class="btn btn-warning" id="giphybut" button type="button">GIPHY</button>
+                            <button type="button" class="btn btn-warning" id="giphybut" button
+                                type="button">GIPHY</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <input id="submitArticle" type="submit" class="btn btn-primary" form="userForm" value="Submit">
+                            <input id="submitArticle" type="submit" class="btn btn-primary" form="userForm"
+                                value="Submit">
                         </div>
                     </div>
                 </div>
