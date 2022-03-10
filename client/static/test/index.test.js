@@ -15,7 +15,7 @@ describe('index.html', () => {
         test('it has a title', () => {
             const title = document.querySelector('.hero-text');
             expect(title).toBeTruthy();
-            expect(title.textContent).toBe("welcome to anonyblog  share your own thoughts.")
+            expect(title.textContent).toBe("Welcome to Anonyblog  share your own thoughts.")
         })
     })
 
@@ -32,7 +32,7 @@ describe('index.html', () => {
             })
 
             test('it has a call to action', () => {
-                expect(button.textContent.toLowerCase()).toContain('start')
+                expect(button.textContent.toLowerCase()).toContain('new article')
             })
 
         })
