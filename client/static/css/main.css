@@ -1,87 +1,77 @@
-/* font-family: 'Open Sans', sans-serif;
-font-family: 'Poppins', sans-serif; */
-/* #009688 */
-/* @import url("https://use.fontawesome.com/releases/v5.0.7/css/all.css"); */
-
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    font-family: 'Open Sans', sans-serif
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif
 }
 
 header {
-    background-color: rgb(0, 0, 0);
+  background-color: rgb(0, 0, 0);
 }
 
-body{
+body {
   background-color: rgb(240, 225, 225);
 }
+
 .hero {
-  background-image: linear-gradient(to bottom, black, rgba(0, 0, 0, 0)),url("../image/background-img.png");
-  /* background-image: linear-gradient(to bottom, black, rgba(0, 0, 0, 0)),url("https://s10721.pcdn.co/wp-content/uploads/2008/07/keeping-a-journal-1.jpg"); */
-	background-size: cover;
+  background-image: linear-gradient(to bottom, black, rgba(0, 0, 0, 0)), url("../image/background-img.png");
+  background-size: cover;
+  background-position: center;
+  align-items: center;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-	height: 100vh;
+  height: 100vh
 }
 
 .hero-text {
-  position: absolute;
-  top:10%;
   color: #ffffff;
   font-size: 75px;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Dancing Script', cursive;
   text-shadow: 3px 3px 4px #614040;
 }
 
 .hero-btn {
-    position: absolute;
-    bottom: 45%;
+  margin-top: 3.125rem;
 }
 
 
 
 .card-footer {
-    display:flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .comment-icon-format {
-    position: relative;
-    text-decoration: none;
+  position: relative;
+  text-decoration: none;
 }
 
 
 
 .comment-pill {
-    font-size: .50em;
+  font-size: .50em;
 }
 
 
 .emoji-pill-format {
-    transform: translate(-50%, -60%);
-    text-decoration: none;
+  transform: translate(-50%, -60%);
+  text-decoration: none;
 }
 
 .emoji-btn-format {
-    border: none;
-    background: none;
+  border: none;
+  background: none;
 }
 
 .textarea-format {
-    width: 100%;
+  width: 100%;
 }
 
 /*Landing page new article button*/
 
 .article-btn button {
-  /* width: 180px; */
-  /* text-decoration: none; */
-  /* display: inline-block; */
-  /* margin: 0 15px; */
-  /* padding: 12px 0; */
 
   color: #fff;
   border: 0.5px solid rgb(17, 37, 19);
@@ -91,7 +81,7 @@ body{
 }
 
 
-.article-btn button span{
+.article-btn button span {
   width: 0%;
   height: 100%;
   position: absolute;
@@ -102,44 +92,47 @@ body{
   transition: 0.5s;
 }
 
-.article-btn button:hover span{
+.article-btn button:hover span {
   width: 100%;
 }
+
 .article-btn button:hover {
   color: #000;
 }
 
 /* Media query for h1 text */
 
-@media screen and (max-width: 900px){
-      .hero-text {
-      font-size: 44px;
-    }
-}
-@media screen and (max-width: 680px){
-      .hero-text {
-      font-size: 38px;
-    }
-}
-@media screen and (max-width: 550px){
-      .hero-text {
-      font-size: 32px;
-    }
+@media screen and (max-width: 900px) {
+  .hero-text {
+    font-size: 44px;
+  }
 }
 
-footer{
-  padding: 20px 0 ;
+@media screen and (max-width: 680px) {
+  .hero-text {
+    font-size: 38px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .hero-text {
+    font-size: 32px;
+  }
+}
+
+footer {
+  padding: 20px 0;
   background: rgb(240, 240, 240);
   position: relative;
 
   margin-top: 30px;
 }
 
-footer a{
+footer a {
   text-decoration: none;
 }
 
-.social-links{
+.social-links {
   text-align: center;
   font-size: 12px;
 
