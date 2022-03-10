@@ -168,7 +168,7 @@ function cardTemplate(data, index) {
                     <button type="button" value="U+1F642 ${index}" class="emoji-btn-format">&#x1F642</button>
                     <button type="button" value="U+1F610 ${index}" class="emoji-btn-format">&#x1F610</button>
                     <button type="button" value="U+1F602 ${index}" class="emoji-btn-format">&#x1F602</button>
-                    <button type="button" value="U+2639 ${index}" class="emoji-btn-format">&#x2639</button>
+                    <button type="button" value="U+1F641 ${index}" class="emoji-btn-format">&#x1F641</button>
                     <button type="button" value="U+1F621 ${index}" class="emoji-btn-format">&#x1F621</button>
                     <button type="button" value="U+1F600 ${index}" class="emoji-btn-format">&#x1F600</button>
                 </form>

@@ -169,7 +169,7 @@ function cardTemplate(data, index) {
                     <button type="button" value="U+1F642 ${index}" class="emoji-btn-format">&#x1F642</button>
                     <button type="button" value="U+1F610 ${index}" class="emoji-btn-format">&#x1F610</button>
                     <button type="button" value="U+1F602 ${index}" class="emoji-btn-format">&#x1F602</button>
-                    <button type="button" value="U+2639 ${index}" class="emoji-btn-format">&#x2639</button>
+                    <button type="button" value="U+1F641 ${index}" class="emoji-btn-format">&#x1F641</button>
                     <button type="button" value="U+1F621 ${index}" class="emoji-btn-format">&#x1F621</button>
                     <button type="button" value="U+1F600 ${index}" class="emoji-btn-format">&#x1F600</button>
                 </form>
@@ -274,7 +274,7 @@ window.onload = () => {
     console.log('done')
     const cardDeck = document.getElementById('cards')
 
-     var observer = new MutationObserver(function (mutationRecords) {
+    var observer = new MutationObserver(function (mutationRecords) {
         console.log("change detected");
         const reactionForm = document.querySelectorAll(`[id*="reactionForm"]`)
         submitReaction()
@@ -286,18 +286,37 @@ window.onload = () => {
 
 }
 
+
 // selectors
 const articleForm = document.querySelector('#userForm');
-
 // event listeners
+
 articleForm.addEventListener('submit', (event) => {
     event.preventDefault()
     submitArticle(event);
-
-
 })
 
+// class SubmitClass {
+//     submitFunction() {
+//         // selectors
+//         const articleForm = document.querySelector('#userForm');
 
+//         // event listeners
 
+//         articleForm.addEventListener('submit', (event) => {
+//             event.preventDefault()
+//             submitArticle(event);
+//             this.submitEvent.bind(this)
+//         })
+//     }
+//     submitEvent() {
+
+//     }
+// }
+
+// const submitArticleForm = new SubmitClass();
+// submitArticleForm
+
+// module.exports = {SubmitClass}
 
 },{"./cardCreation":1,"./handler":2}]},{},[3]);
