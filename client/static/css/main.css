@@ -15,10 +15,12 @@ header {
 }
 
 body{
-  background-color: rgb(243, 226, 226);
+  background-color: rgb(240, 225, 225);
 }
 .hero {
-  background-image: linear-gradient(to bottom, black, rgba(0, 0, 0, 0)),url("https://k48b9e9840-flywheel.netdna-ssl.com/wp-content/uploads/2021/07/alfons-morales-YLSwjSy7stw-unsplash.jpg");
+  background-image: linear-gradient(to bottom, black, rgba(0, 0, 0, 0)),url("/client/static/image/background-img.png");
+
+  /* background: linear-gradient(rgba(0,0,0,0.5),#1f1f25), url("/client/static/image/background-img.png"); */
 	background-size: cover;
   display: flex;
   justify-content: center;
