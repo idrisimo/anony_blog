@@ -2,12 +2,8 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: 'Open Sans', sans-serif
 }
 
-header {
-  background-color: rgb(0, 0, 0);
-}
 
 body {
   background-color: rgb(240, 225, 225);
@@ -26,16 +22,18 @@ body {
 
 .hero-text {
   color: #ffffff;
-  font-size: 75px;
   text-align: center;
-  font-family: 'Dancing Script', cursive;
   text-shadow: 3px 3px 4px #614040;
+  font-family: 'Caveat', cursive;
 }
 
-/* .hero-btn {
-  margin-top: 3.125rem;
-} */
+h1 {
+  font-size: 100px;
+}
 
+.hero-text h3{
+  font-size: 60px;
+}
 
 
 .card-footer {
@@ -67,6 +65,7 @@ body {
 
 .textarea-format {
   width: 100%;
+  margin-top: 10px;
 }
 
 /*Landing page new article button*/
