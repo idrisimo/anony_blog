@@ -26,28 +26,3 @@ articleForm.addEventListener('submit', (event) => {
     event.preventDefault()
     submitArticle(event);
 })
-
-// class SubmitClass {
-//     submitFunction() {
-//         // selectors
-//         const articleForm = document.querySelector('#userForm');
-
-//         // event listeners
-
-//         articleForm.addEventListener('submit', (event) => {
-//             event.preventDefault()
-//             submitArticle(event);
-//             this.submitEvent.bind(this)
-//         })
-//     }
-//     submitEvent() {
-
-//     }
-// }
-
-// const submitArticleForm = new SubmitClass();
-// submitArticleForm
-
-// module.exports = {SubmitClass}
-
-module
