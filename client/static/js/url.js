@@ -1,9 +1,9 @@
 
 // development
-const API_URL = 'http://localhost:3000'
+// const API_URL = 'http://localhost:3000'
 
 // production
-// const API_URL = 'https://api-anonyblogfp.herokuapp.com'
+const API_URL = 'https://api-anonyblogfp.herokuapp.com'
 
 
 
