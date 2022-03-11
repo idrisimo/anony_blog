@@ -71,12 +71,13 @@ body {
 
 /*Landing page new article button*/
 
+.article-btn a{
+ text-decoration: none;
+ color: #fff;
+}
+
 .article-btn button {
-/*
-  color: #fff;
-  border: 0.5px solid rgb(17, 37, 19);
-  z-index: 1;
-  transition: color 0.5s; */
+
   width: 220px;
   text-decoration: none;
   display: inline-block;
@@ -84,7 +85,7 @@ body {
   padding: 12px 0;
   color: #fff;
   border: 0.5px solid #fff;
-  position: relative; /*to the span on btn*/
+  position: relative;
   z-index: 1;
   transition: color 0.5s;
   margin-top: 60px;
@@ -93,24 +94,13 @@ body {
 }
 
 
-/* .article-btn button span {
-  width: 0%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: rgb(228, 236, 227);
-  z-index: -1;
-  transition: 0.5s;
-} */
+
 
 .article-btn button:hover span {
   width: 100%;
 }
 
-.article-btn button:hover {
-  color: #000;
-}
+
 
 /* Media query for h1 text */
 
@@ -134,11 +124,13 @@ body {
   .article-btn {
     display: flex;
     flex-direction: column;
-    
+
   }
 
 
 }
+
+/* Footer section */
 
 footer {
   padding: 20px 0;
