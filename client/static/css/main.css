@@ -39,8 +39,9 @@ body {
 
 
 .card-footer {
-  display: flex;
-  justify-content: space-between;
+  /* display: flex;
+  justify-content: space-between; */
+  background-color: rgb(51, 29, 29);
 }
 
 .comment-icon-format {
@@ -63,6 +64,7 @@ body {
 .emoji-btn-format {
   border: none;
   background: none;
+  margin-left: 10px;
 }
 
 .textarea-format {
