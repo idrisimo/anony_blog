@@ -278,7 +278,6 @@ articleForm.addEventListener('submit', (event) => {
     submitArticle(event);
 })
 
-
 },{"./cardCreation":1,"./handler":2,"./url":4}],4:[function(require,module,exports){
 
 // development
