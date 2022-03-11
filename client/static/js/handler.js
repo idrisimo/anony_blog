@@ -1,4 +1,6 @@
 const { buildDeck } = require("./cardCreation");
+const { API_URL } = require("./url");
+
 
 function submitArticle(event) {
     event.preventDefault()
@@ -21,7 +23,8 @@ function submitArticle(event) {
             }
         }
         // TODO this fetch will most likely need to change before production
-        fetch('http://localhost:3000/create', options).then(()=>buildDeck())
+        
+        fetch(`${API_URL}/create`, options).then(()=>buildDeck())
         closeModalOnSuccess()
         successAlert('Journal entry submitted', 'success')
     } catch {

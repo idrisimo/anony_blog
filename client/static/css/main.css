@@ -35,16 +35,11 @@ h1 {
   font-size: 60px;
 }
 
-.hero-btn {
-  margin-top: 3.125rem;
-  font-size: 20px;
-}
-
-
 
 .card-footer {
-  display: flex;
-  justify-content: space-between;
+  /* display: flex;
+  justify-content: space-between; */
+  background-color: rgb(51, 29, 29);
 }
 
 .comment-icon-format {
@@ -67,6 +62,7 @@ h1 {
 .emoji-btn-format {
   border: none;
   background: none;
+  margin-left: 10px;
 }
 
 .textarea-format {
@@ -76,34 +72,36 @@ h1 {
 
 /*Landing page new article button*/
 
+.article-btn a{
+ text-decoration: none;
+ color: #fff;
+}
+
 .article-btn button {
 
+  width: 220px;
+  text-decoration: none;
+  display: inline-block;
+  margin: 0 15px;
+  padding: 12px 0;
   color: #fff;
-  border: 0.5px solid rgb(17, 37, 19);
+  border: 0.5px solid #fff;
+  position: relative;
   z-index: 1;
   transition: color 0.5s;
+  margin-top: 60px;
+  border-radius: 50px;
 
 }
 
 
-.article-btn button span {
-  width: 0%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: rgb(228, 236, 227);
-  z-index: -1;
-  transition: 0.5s;
-}
+
 
 .article-btn button:hover span {
   width: 100%;
 }
 
-.article-btn button:hover {
-  color: #000;
-}
+
 
 /* Media query for h1 text */
 
@@ -123,7 +121,17 @@ h1 {
   .hero-text {
     font-size: 32px;
   }
+
+  .article-btn {
+    display: flex;
+    flex-direction: column;
+
+  }
+
+
 }
+
+/* Footer section */
 
 footer {
   padding: 20px 0;
