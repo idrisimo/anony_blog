@@ -39,8 +39,6 @@ body {
 
 
 .card-footer {
-  /* display: flex;
-  justify-content: space-between; */
   background-color: rgb(51, 29, 29);
 }
 
@@ -52,7 +50,7 @@ body {
 
 
 .comment-pill {
-  font-size: .50em;
+  font-size: .40em;
 }
 
 
