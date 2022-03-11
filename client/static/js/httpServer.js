@@ -6,7 +6,7 @@
 // })
 
 const { exec } = require('child_process')
-const PORT = process.env.PORT || '8080'
+const PORT = process.env.PORT || '80'
 console.log(`running on port ${PORT}`)
 exec(`http-server -p ${PORT}`, (error, stdout, stderr) => {
     
