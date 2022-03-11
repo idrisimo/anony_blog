@@ -5,7 +5,6 @@ function getAllArticles() {
     return fetch(`${API_URL}/articles`).then((response) => response.json()).catch(console.warn)
 }
 
-
 function buildDeck() {
     console.log('building deck')
 

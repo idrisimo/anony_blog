@@ -6,21 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script defer src="bundle.js"></script>
-    <script defer src="/static/js/api.js"></script>
+    <script defer src="./static/js/api.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&family=Poppins&display=swap"
-        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
         integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="./static/css/main.css">
     <link rel="icon" href="./static/image/favicon-32x32.png">
+
 
     <title>Anony-blog</title>
 </head>
@@ -29,8 +29,14 @@
     <main>
         <div class="hero">
             <div id="submitAlert"></div>
-            <h1 class="hero-text">Welcome to Anonyblog <br> share your thoughts.</h1>
+            <div class="hero-text">
+                <h1>Welcome to Anonyblog</h1>
+                <h3>Share your own thoughts.</h3>
+            </div>
             <div class="article-btn">
+                <button class="btn btn-success hero-btn" data-bs-toggle="modal"
+                    ><span></span><a href="#articles">Read Article</a>
+                </button>
                 <button class="btn btn-success hero-btn" data-bs-toggle="modal"
                     data-bs-target="#articleModal"><span></span>New Article
                 </button>
@@ -47,7 +53,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="articleModal">Share your thoughts</h5>
+                            <h5 class="modal-title" id="articleModal">Share your own thoughts</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -62,7 +68,7 @@
                             <button type="button" class="btn btn-warning" id="giphybut" button
                                 type="button">GIPHY</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <input id="submitArticle" type="submit" class="btn btn-primary" form="userForm"
+                         <input id="submitArticle" type="submit" class="btn btn-primary" form="userForm"
                                 value="Submit">
                         </div>
                     </div>
@@ -75,7 +81,7 @@
                         target="_blank">Fetch-Team6</a></i></strong>
         </p>
 
-    </footer>
+    </footer>  
 </body>
 
 </html>

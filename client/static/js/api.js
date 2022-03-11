@@ -18,3 +18,5 @@ function sendApiRequest(){
         document.getElementById("userForm").insertAdjacentHTML('beforeend',img)
     })
 }
+
+module.exports = sendApiRequest;

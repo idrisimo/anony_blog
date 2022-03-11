@@ -38,22 +38,4 @@ function closeModalOnSuccess() {
     modal.hide()
 }
 
-// function successAlert(message, type) {
-//     const alertWrapper = document.createElement('div')
-//     alertWrapper.setAttribute('class', `alert alert-${type} alert-dismissible`)
-//     alertWrapper.setAttribute('role', 'alert')
-
-//     const btn = document.createElement('button')
-//     btn.setAttribute('type', 'button')
-//     btn.setAttribute('class', 'btn-close')
-//     btn.setAttribute('data-bs-dismiss', 'alert')
-//     btn.setAttribute('aria-label', 'Close')
-
-//     alertWrapper.textContent = message
-
-//     alertWrapper.append(btn)
-//     const submitAlert = document.getElementById('submitAlert')
-//     submitAlert.append(alertWrapper)
-// }
-
 module.exports = { submitArticle }
