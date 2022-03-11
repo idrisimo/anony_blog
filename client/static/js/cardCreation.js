@@ -2,49 +2,36 @@ function getAllArticles() {
     return fetch('http://localhost:3000/articles').then((response) => response.json()).catch(console.warn)
     
 }
-
-
 function buildDeck() {
     console.log('building deck')
-    // fetch('http://localhost:3000/articles')
-    //     .then((response) => response.json())
     const response = getAllArticles()
-        response.then((data) => {
-           try { // Get Card wrapper
-            const wrapper = document.getElementById('cards')
+    response.then((data) => {
+        try { // Get Card wrapper
+        const wrapper = document.getElementById('cards')
 
-            // Loop for building cards
-            for (index in data) {
-
-                let cardId = parseInt(index)
-                cardId += 1
-
-                // Constructs new deck to be place in html
-                const card = cardTemplate(data[index], cardId)
-
-                // Removes old deck on html page
-                removeStaleDeck(cardId)
-
-                // Feeds new deck to html page
-                wrapper.insertAdjacentHTML('afterbegin', card)
-
-            }
+        // Loop for building cards
+        for (index in data) {
+            let cardId = parseInt(index)
+            cardId += 1
+            // Constructs new deck to be place in html
+            const card = cardTemplate(data[index], cardId)
+            // Removes old deck on html page
+            removeStaleDeck(cardId)
+            // Feeds new deck to html page
+            wrapper.insertAdjacentHTML('afterbegin', card)
+        }
             return true
         } catch {
             return false
         }
-            // initialises event controller after cards added to deck
-            //  eventListernerController()
-        })
+    })
 }
 
 const removeStaleDeck = (cardId) => {
-
     const cardNum = document.getElementById(`cardNum${cardId}`)
     if (cardNum) {
         cardNum.remove()
     }
-
 }
 
 function sendComments(comment) {
@@ -52,8 +39,6 @@ function sendComments(comment) {
         id: parseInt(comment.target[1].value),
         comments: comment.target[0].value
     }
-    console.log(comment)
-
     const options = {
         method: 'POST',
         body: JSON.stringify(commentData),
@@ -61,7 +46,6 @@ function sendComments(comment) {
             "Content-Type": "application/json",
         }
     }
-
     fetch('http://localhost:3000/updatearticlecomment', options).then(() => buildDeck())
 }
 
@@ -69,12 +53,10 @@ function showComments() {
     let commBoxes = document.querySelectorAll(`[id^="commnum"]`)
     commBoxes = Array.from(commBoxes)
     for (let i = 0; i < commBoxes.length; i++) {
-
         commBoxes[i].addEventListener('submit', (e) => {
             e.preventDefault()
             sendComments(e)
         })
-
     }
 }
 
