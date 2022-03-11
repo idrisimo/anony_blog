@@ -1,6 +1,7 @@
 const { submitArticle } = require("./handler");
 const { buildDeck, submitReaction, showComments } = require("./cardCreation");
 
+const API_URL = require('./url')
 
 
 window.onload = () => {
@@ -54,3 +55,5 @@ articleForm.addEventListener('submit', (event) => {
 // submitArticleForm
 
 // module.exports = {SubmitClass}
+
+module

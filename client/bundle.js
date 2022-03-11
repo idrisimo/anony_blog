@@ -1,17 +1,20 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+const { API_URL } = require("./url")
+
+
 function getAllArticles() {
-    return fetch('http://localhost:3000/articles').then((response) => response.json()).catch(console.warn)
-    
+    return fetch(`${API_URL}/articles`).then((response) => response.json()).catch(console.warn)
+
 }
 
 
 function buildDeck() {
     console.log('building deck')
-    // fetch('http://localhost:3000/articles')
-    //     .then((response) => response.json())
+
     const response = getAllArticles()
-        response.then((data) => {
-           try { // Get Card wrapper
+    response.then((data) => {
+        try {
+            // Get Card wrapper
             const wrapper = document.getElementById('cards')
 
             // Loop for building cards
@@ -34,9 +37,9 @@ function buildDeck() {
         } catch {
             return false
         }
-            // initialises event controller after cards added to deck
-            //  eventListernerController()
-        })
+        // initialises event controller after cards added to deck
+        //  eventListernerController()
+    })
 }
 
 const removeStaleDeck = (cardId) => {
@@ -63,7 +66,7 @@ function sendComments(comment) {
         }
     }
 
-    fetch('http://localhost:3000/updatearticlecomment', options).then(() => buildDeck())
+    fetch(`${API_URL}/updatearticlecomment`, options).then(() => buildDeck())
 }
 
 function showComments() {
@@ -86,17 +89,17 @@ function constructReactionData(event) {
         reactions: valueArray[0]
     }
     console.log(reactionData)
-            const options = {
-                method: 'POST',
-                body: JSON.stringify(reactionData),
-                headers: {
-                    "Content-Type": "application/json",
-                }
-            }
-            fetch('http://localhost:3000/updatearticlereaction', options).then(() => buildDeck())
+    const options = {
+        method: 'POST',
+        body: JSON.stringify(reactionData),
+        headers: {
+            "Content-Type": "application/json",
+        }
+    }
+    fetch(`${API_URL}/updatearticlereaction`, options).then(() => buildDeck())
 }
 
-function submitReaction(){
+function submitReaction() {
     const reactionForm = document.querySelectorAll(`[id*="reactionForm"]`)
 
     for (let i = 0; i < reactionForm.length; i++) {
@@ -169,7 +172,7 @@ function cardTemplate(data, index) {
                     <button type="button" value="U+1F642 ${index}" class="emoji-btn-format">&#x1F642</button>
                     <button type="button" value="U+1F610 ${index}" class="emoji-btn-format">&#x1F610</button>
                     <button type="button" value="U+1F602 ${index}" class="emoji-btn-format">&#x1F602</button>
-                    <button type="button" value="U+2639 ${index}" class="emoji-btn-format">&#x2639</button>
+                    <button type="button" value="U+1F641 ${index}" class="emoji-btn-format">&#x1F641</button>
                     <button type="button" value="U+1F621 ${index}" class="emoji-btn-format">&#x1F621</button>
                     <button type="button" value="U+1F600 ${index}" class="emoji-btn-format">&#x1F600</button>
                 </form>
@@ -202,8 +205,10 @@ function cardTemplate(data, index) {
 module.exports = { buildDeck, submitReaction, showComments, getAllArticles, removeStaleDeck, sendComments, constructReactionData }
 
 
-},{}],2:[function(require,module,exports){
+},{"./url":4}],2:[function(require,module,exports){
 const { buildDeck } = require("./cardCreation");
+const { API_URL } = require("./url");
+
 
 function submitArticle(event) {
     event.preventDefault()
@@ -227,7 +232,7 @@ function submitArticle(event) {
         }
         // TODO this fetch will most likely need to change before production
         
-        fetch('http://localhost:3000/create', options).then(()=>buildDeck())
+        fetch(`${API_URL}/create`, options).then(()=>buildDeck())
         closeModalOnSuccess()
         successAlert('Journal entry submitted', 'success')
     } catch {
@@ -261,10 +266,11 @@ function successAlert(message, type) {
 
 module.exports = { submitArticle }
 
-},{"./cardCreation":1}],3:[function(require,module,exports){
+},{"./cardCreation":1,"./url":4}],3:[function(require,module,exports){
 const { submitArticle } = require("./handler");
 const { buildDeck, submitReaction, showComments } = require("./cardCreation");
 
+const API_URL = require('./url')
 
 
 window.onload = () => {
@@ -319,4 +325,18 @@ articleForm.addEventListener('submit', (event) => {
 
 // module.exports = {SubmitClass}
 
-},{"./cardCreation":1,"./handler":2}]},{},[3]);
+module
+
+},{"./cardCreation":1,"./handler":2,"./url":4}],4:[function(require,module,exports){
+
+// development
+// const API_URL = 'http://localhost:3000'
+
+// production
+const API_URL = 'https://api-anonyblogfp.herokuapp.com'
+
+
+
+module.exports = {API_URL};
+
+},{}]},{},[3]);
