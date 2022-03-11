@@ -177,7 +177,7 @@ function cardTemplate(data, index) {
                 </form>
                 
             </div>
-            <small class="text-muted text-end">${data['createdAt']}</small>
+            <small class="text-light text-end">${data['createdAt']}</small>
             <div class="collapse" id="commentCollapse${index}">
                 <div class="card card-body">
                     <div>
