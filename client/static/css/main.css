@@ -116,19 +116,23 @@ h1 {
 /* Media query for h1 text */
 
 @media screen and (max-width: 900px) {
-  .hero-text {
+  .h1 {
     font-size: 44px;
+  }
+
+  .h3{
+     font-size: 28px;
   }
 }
 
 @media screen and (max-width: 680px) {
-  .hero-text {
+  .h1 {
     font-size: 38px;
   }
 }
 
 @media screen and (max-width: 550px) {
-  .hero-text {
+  .h3 {
     font-size: 32px;
   }
 
