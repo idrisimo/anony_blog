@@ -116,24 +116,38 @@ h1 {
 /* Media query for h1 text */
 
 @media screen and (max-width: 900px) {
-  .h1 {
-    font-size: 44px;
+  .hero-text h1 {
+    font-size: 45px;
+    font-family: 'Merriweather', serif;
   }
 
-  .h3{
-     font-size: 28px;
+  .hero-text h3 {
+     font-size: 30px;
+     font-family: 'Merriweather', serif;
   }
 }
 
 @media screen and (max-width: 680px) {
-  .h1 {
+ .hero-text h1 {
     font-size: 38px;
+    font-family: 'Merriweather', serif;
+  }
+
+   .hero-text h3 {
+     font-size: 25px;
+     font-family: 'Merriweather', serif;
   }
 }
 
 @media screen and (max-width: 550px) {
-  .h3 {
-    font-size: 32px;
+   .hero-text h1 {
+     font-size: 30px;
+     font-family: 'Merriweather', serif;
+  }
+
+   .hero-text h3 {
+     font-size: 18px;
+     font-family: 'Merriweather', serif;
   }
 
   .article-btn {
