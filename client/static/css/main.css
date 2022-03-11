@@ -38,14 +38,26 @@ h1 {
 
 .card-footer {
   background-color: rgb(51, 29, 29);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
+.comment-cont{
+  display: flex;
+}
+
+.card-img-top{
+  width:40%;
+}
 .comment-icon-format {
   position: relative;
   text-decoration: none;
 }
 
-
+.collapse{
+  width: 100%;
+}
 
 .comment-pill {
   font-size: .40em;
