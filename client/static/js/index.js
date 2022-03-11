@@ -1,8 +1,6 @@
 const { submitArticle } = require("./handler");
 const { buildDeck, submitReaction, showComments } = require("./cardCreation");
-
 const API_URL = require('./url')
-
 
 window.onload = () => {
 
@@ -18,11 +16,7 @@ window.onload = () => {
         showComments()
     });
     observer.observe(cardDeck, { childList: true })
-
-
-
 }
-
 
 // selectors
 const articleForm = document.querySelector('#userForm');

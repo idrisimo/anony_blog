@@ -7,7 +7,8 @@
     "test": "jest",
     "dev": "concurrently \"watchify ./static/js/index.js -o bundle.js\" \"py -m http.server\"",
     "start": "http-server",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "httpServer": " node ./static/js/httpServer.js" 
   },
   "keywords": [],
   "author": "",
