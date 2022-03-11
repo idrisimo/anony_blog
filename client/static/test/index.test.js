@@ -17,7 +17,7 @@ describe('index.html', () => {
         test('it has a title', () => {
             const title = document.querySelector('.hero-text');
             expect(title).toBeTruthy();
-            expect(title.textContent).toBe("Welcome to Anonyblog  share your own thoughts.")
+            expect(title.textContent).toBe("Welcome to Anonyblog  share your thoughts.")
         })
     })
 

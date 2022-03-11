@@ -3,7 +3,6 @@ const { API_URL } = require("./url")
 
 function getAllArticles() {
     return fetch(`${API_URL}/articles`).then((response) => response.json()).catch(console.warn)
-
 }
 
 function buildDeck() {
@@ -153,6 +152,7 @@ function cardTemplate(data, index) {
         <div class="card-body">
             <h5 class="card-title">${data['title']}</h5>
             <p class="card-text">${data['description']}</p>
+            <img src="${data['giphys']}" class="card-img-top" alt="">
         </div>
         <div class="card-footer">
         
@@ -160,10 +160,11 @@ function cardTemplate(data, index) {
                 <a class="comment-icon-format me-3" data-bs-toggle="collapse" href="#commentCollapse${index}" role="button" aria-expanded="false" aria-controls="commentCollapse${index}">
 
                     <i class="fa-solid fa-comment">
-                        <span
-                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger comment-pill">
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger comment-pill">
                             ${commentLoop()[1]}
+                        </span>
                             <span class="visually-hidden">Comments</span>
+                            
                     </i>
                 </a>
                 <form id="reactionForm${index}">

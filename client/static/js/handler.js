@@ -12,9 +12,9 @@ function submitArticle(event) {
             createdAt: new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}),
             comments: [null],
             reactions: [null],
-            giphys: [null]
+            giphys: event.target['GiphyImage'].src
         };
-        console.log('submitarticle', articleData)
+        console.log(articleData)
         const options = {
             method: 'POST',
             body: JSON.stringify(articleData),
