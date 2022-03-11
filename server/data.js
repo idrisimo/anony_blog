@@ -6,6 +6,4 @@ const articles =  [
     { id:4, title: "Yeah baby!", createdAt:"", description:"Just got a pay rise once again. I can really see my work paying off.",comments: ["Lucky you :( ", "Make sure you're still saving! Otherwise it will be pointless"],reactions: ["U+1F600", "U+1F600", "U+1F602"], giphys: [null]}
 ]
 
-
-
 module.exports = articles

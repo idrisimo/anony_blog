@@ -20,9 +20,7 @@ router.post('/create', (req,res) => {
 
 router.post('/updatearticlereaction', (req, res) => {
   const data = req.body;
-  
   const articleToUpdate = Article.updateReactionById(data)
-  // console.log('reaction update',articleToUpdate)
   res.status(201).send(articleToUpdate)
 })
 
@@ -33,13 +31,5 @@ router.post('/updatearticlecomment', (req,res) => {
   res.status(201).send(commentToUpdate)
 
 })
-
-// router.get('/comments/', (req,res) => {
-//   let data = req.body
-//   let articleID = req.params.id
-//   let comments = data[articleID]
-//   console.log(comments)
-//   res.send(data)
-// })
 
 module.exports = router
