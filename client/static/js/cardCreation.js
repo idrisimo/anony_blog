@@ -6,7 +6,6 @@ function getAllArticles() {
 
 }
 
-
 function buildDeck() {
     console.log('building deck')
 
