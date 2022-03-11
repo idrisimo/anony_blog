@@ -12,9 +12,9 @@ function submitArticle(event) {
             createdAt: new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}),
             comments: [null],
             reactions: [null],
-            giphys: [null]
+            giphys: event.target['GiphyImage'].src
         };
-        console.log('submitarticle', articleData)
+        console.log(articleData)
         const options = {
             method: 'POST',
             body: JSON.stringify(articleData),
@@ -38,22 +38,22 @@ function closeModalOnSuccess() {
     modal.hide()
 }
 
-function successAlert(message, type) {
-    const alertWrapper = document.createElement('div')
-    alertWrapper.setAttribute('class', `alert alert-${type} alert-dismissible`)
-    alertWrapper.setAttribute('role', 'alert')
+// function successAlert(message, type) {
+//     const alertWrapper = document.createElement('div')
+//     alertWrapper.setAttribute('class', `alert alert-${type} alert-dismissible`)
+//     alertWrapper.setAttribute('role', 'alert')
 
-    const btn = document.createElement('button')
-    btn.setAttribute('type', 'button')
-    btn.setAttribute('class', 'btn-close')
-    btn.setAttribute('data-bs-dismiss', 'alert')
-    btn.setAttribute('aria-label', 'Close')
+//     const btn = document.createElement('button')
+//     btn.setAttribute('type', 'button')
+//     btn.setAttribute('class', 'btn-close')
+//     btn.setAttribute('data-bs-dismiss', 'alert')
+//     btn.setAttribute('aria-label', 'Close')
 
-    alertWrapper.textContent = message
+//     alertWrapper.textContent = message
 
-    alertWrapper.append(btn)
-    const submitAlert = document.getElementById('submitAlert')
-    submitAlert.append(alertWrapper)
-}
+//     alertWrapper.append(btn)
+//     const submitAlert = document.getElementById('submitAlert')
+//     submitAlert.append(alertWrapper)
+// }
 
 module.exports = { submitArticle }

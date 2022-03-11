@@ -1,9 +1,10 @@
 const { submitArticle } = require("./handler");
 const { buildDeck, submitReaction, showComments } = require("./cardCreation");
-
 const API_URL = require('./url')
 
+console.log(process.env.PORT)
 
+console.log(process.env)
 window.onload = () => {
 
     buildDeck()
