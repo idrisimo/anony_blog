@@ -1,3 +1,3 @@
 web: npm run httpServer
-web: npm run dev
+
 
