@@ -14,8 +14,14 @@ function sendApiRequest(){
         const randomNum = Math.floor(Math.random() * 50)
         let imgPath = json.data[randomNum].images.fixed_height.url
         let img = `<img id="GiphyImage" src="${imgPath}" alt="Giphy Image">`
-        //img.setAttribute("src", imgPath)
-        document.getElementById("userForm").insertAdjacentHTML('beforeend',img)
+        const imgEl = document.getElementById('GiphyImage')
+        if(!imgEl) {
+            document.getElementById("userForm").insertAdjacentHTML('beforeend',img)
+        } else {
+            imgEl.remove()
+            document.getElementById("userForm").insertAdjacentHTML('beforeend',img)
+        }
+        
     })
 }
 
