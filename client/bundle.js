@@ -157,7 +157,7 @@ function cardTemplate(data, index) {
         </div>
         <div class="card-footer">
         
-            <div>
+            <div class="comment-cont">
                 <a class="comment-icon-format me-3" data-bs-toggle="collapse" href="#commentCollapse${index}" role="button" aria-expanded="false" aria-controls="commentCollapse${index}">
 
                     <i class="fa-solid fa-comment">
@@ -278,30 +278,6 @@ articleForm.addEventListener('submit', (event) => {
     submitArticle(event);
 })
 
-// class SubmitClass {
-//     submitFunction() {
-//         // selectors
-//         const articleForm = document.querySelector('#userForm');
-
-//         // event listeners
-
-//         articleForm.addEventListener('submit', (event) => {
-//             event.preventDefault()
-//             submitArticle(event);
-//             this.submitEvent.bind(this)
-//         })
-//     }
-//     submitEvent() {
-
-//     }
-// }
-
-// const submitArticleForm = new SubmitClass();
-// submitArticleForm
-
-// module.exports = {SubmitClass}
-
-module
 
 },{"./cardCreation":1,"./handler":2,"./url":4}],4:[function(require,module,exports){
 

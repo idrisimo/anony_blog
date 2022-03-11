@@ -156,7 +156,7 @@ function cardTemplate(data, index) {
         </div>
         <div class="card-footer">
         
-            <div>
+            <div class="comment-cont">
                 <a class="comment-icon-format me-3" data-bs-toggle="collapse" href="#commentCollapse${index}" role="button" aria-expanded="false" aria-controls="commentCollapse${index}">
 
                     <i class="fa-solid fa-comment">
